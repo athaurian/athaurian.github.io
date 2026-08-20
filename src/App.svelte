@@ -6,7 +6,7 @@
 
   // --- Editable Content ---
   const pseudonym = 'athaurian'
-  const tagline = `i make things for my own use.
+  const tagline = `i like making things for my own use.
 <br>you can also call me <strong>\"hanif\"</strong>. either name is fine.
 `
 
