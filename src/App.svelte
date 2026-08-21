@@ -37,7 +37,7 @@
     {
       platform: 'github',
       link: 'https://github.com/athaurian',
-      subtext: 'bad code',
+      subtext: 'sphagetti code',
       icon: GithubMark,
     },
     {
