@@ -15,7 +15,7 @@
     {
       title: 'this very website',
       description: 'it\'s in the name.',
-      link: 'https://github.com/athaurian/athaurian'.
+      link: 'https://github.com/athaurian/athaurian',
       url: 'athaurian/athaurian',
     },
     {
