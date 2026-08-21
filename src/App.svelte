@@ -14,12 +14,6 @@
 
   const projects = [
     {
-      title: 'This website',
-      description: "It's in the name",
-      link: 'https://github.com/athaurian/athaurian',
-      url: 'athaurian/athaurian',
-    },
-    {
       title: 'dotfiles',
       description: 'My over-engineered Linux setup',
       link: 'https://github.com/athaurian/dotfiles',
@@ -252,6 +246,6 @@
 </main>
 
 <footer>
-  <p>Last built {lastBuilt}</p>
+  <p>Last built on {lastBuilt}</p>
   <p>Built with <a href="https://svelte.dev" target="_blank" rel="noreferrer">Svelte</a>. <a href="https://github.com/athaurian/athaurian" target="_blank" rel="noreferrer">View the source</a></p>
 </footer>
