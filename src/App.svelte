@@ -15,8 +15,8 @@
     {
       title: 'this very website',
       description: 'it\'s in the name.',
-      link: 'https://github.com/athaurian/athaurian.github.io',
-      url: 'athaurian/athaurian.github.io',
+      link: 'https://github.com/athaurian/athaurian'.
+      url: 'athaurian/athaurian',
     },
     {
       title: 'dotfiles',
@@ -223,5 +223,5 @@
 
 <footer>
   <p>last built {lastBuilt}.</p>
-  <p>built with <a href="https://svelte.dev" target="_blank" rel="noreferrer">svelte</a>. <a href="https://github.com/athaurian/athaurian.github.io" target="_blank" rel="noreferrer">view the source</a></p>
+  <p>built with <a href="https://svelte.dev" target="_blank" rel="noreferrer">svelte</a>. <a href="https://github.com/athaurian/athaurian" target="_blank" rel="noreferrer">view the source</a></p>
 </footer>
