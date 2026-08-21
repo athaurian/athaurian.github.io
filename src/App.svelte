@@ -26,6 +26,12 @@
       url: 'athaurian/dotfiles',
     },
     {
+      title: 'forge',
+      description: 'My Arch Linux package repository',
+      link: 'https://github.com/athaurian/forge',
+      url: 'athaurian/forge',
+    },
+    {
       title: 'calpdf',
       description: 'A simple PDF toolkit to run alongside Calibre',
       link: 'https://github.com/athaurian/calpdf',
