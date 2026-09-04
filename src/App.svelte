@@ -71,7 +71,6 @@
   function toggleTheme() {
     theme = theme === 'dark' ? 'light' : 'dark'
     document.documentElement.dataset.theme = theme
-    writeStorage('athaurian-theme', theme)
   }
 
   onMount(() => {
@@ -82,7 +81,6 @@
     if (!storedTheme) root.dataset.theme = theme
 
     const followSystemTheme = (event) => {
-      if (readStorage('athaurian-theme')) return
       theme = event.matches ? 'dark' : 'light'
       root.dataset.theme = theme
     }
