@@ -19,8 +19,8 @@
     {
       label: 'forge',
       description: 'My Arch Linux package repository',
-      link: 'https://athaurian.github.io/forge',
-      url: 'athaurian.github.io/forge',
+      link: 'https://github.com/athaurian/forge',
+      url: 'athaurian/forge',
     },
     {
       label: 'calpdf',
