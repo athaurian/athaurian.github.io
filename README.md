@@ -1,4 +1,4 @@
-# athaurian
+# athaurian.github.io
 
 Hi. This is my single-page personal site, built with Vite and Svelte. Pull up the site to see it for yourself.
 
