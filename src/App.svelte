@@ -2,6 +2,7 @@
   import { onMount } from 'svelte'
   import { Bird, Mail } from '@lucide/svelte'
   import GithubMark from './GithubMark.svelte'
+  import LinkedInMark from './LinkedInMark.svelte'
   import TypedTitle from './TypedTitle.svelte'
   import UtilityBar from './UtilityBar.svelte'
 
@@ -36,6 +37,12 @@
       link: 'https://github.com/athaurian',
       subtext: 'Spaghetti code',
       icon: GithubMark,
+    },
+    {
+      label: 'LinkedIn',
+      link: 'https://www.linkedin.com/in/athaurian/',
+      subtext: 'The professional one',
+      icon: LinkedInMark,
     },
     {
       label: 'Twitter',
@@ -94,8 +101,9 @@
         <p class="greeting">Hi, I'm</p>
         <TypedTitle {pseudonym} />
         <p class="tagline">
-          I like making things for my own use.
-          <span class="tagline-sub">And, as you can tell, I like ricing too.</span>
+          I'm an undergrad at CSUI (Universitas Indonesia),<br />
+          and I like making things for my own use.
+          <span class="tagline-sub">Let's connect!</span>
         </p>
       </div>
     </section>
