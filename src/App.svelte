@@ -151,6 +151,6 @@
 
   <footer>
     <p>Last changed on {lastBuilt}</p>
-    <p>Made with ❤️ and <a href="https://svelte.dev" target="_blank" rel="noreferrer">Svelte</a> · <a href="https://github.com/athaurian/athaurian" target="_blank" rel="noreferrer">View the source</a> on GitHub</p>
+    <p>Made with ❤️ and <a href="https://svelte.dev" target="_blank" rel="noreferrer">Svelte</a> · <a href="https://github.com/athaurian/athaurian.github.io" target="_blank" rel="noreferrer">View the source</a> on GitHub</p>
   </footer>
 </div>
