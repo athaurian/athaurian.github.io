@@ -101,9 +101,9 @@
         <p class="greeting">Hi, I'm</p>
         <TypedTitle {pseudonym} />
         <p class="tagline">
-          I like to make things for my own use.<br />
-          Let's connect!
-          <span class="tagline-sub">As you can tell, I like ricing too.</span>
+          I'm a CS undergrad at Universitas Indonesia,<br />
+          and I like making things for my own use.
+          <span class="tagline-sub">Let's connect!</span>
         </p>
       </div>
     </section>
