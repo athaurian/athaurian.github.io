@@ -30,7 +30,7 @@
 
 <style>
   h1 {
-    margin-bottom: var(--space-1);
+    margin-bottom: var(--space-2);
     font-family: var(--font-mono);
     font-size: var(--font-size-name);
     font-weight: var(--font-weight-bold);
