@@ -101,7 +101,9 @@
         <p class="greeting">Hi, I'm</p>
         <TypedTitle {pseudonym} />
         <p class="tagline">
-          I'm a CS undergrad at Universitas Indonesia,<br />
+          I'm a CS undergrad at
+          <img class="ui-logo" src="/ui-logo.svg" alt="" />
+          <span class="institution">Universitas Indonesia</span>,<br />
           and I like making things for my own use.
           <span class="tagline-sub">Let's connect!</span>
         </p>

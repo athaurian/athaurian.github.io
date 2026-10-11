@@ -31,6 +31,7 @@
   --color-text-secondary: #4d4d4d;
   --color-text-dim: #6b6b6b;
   --color-divider: #c4c4c4;
+  --color-institution: #7d5f00;
 }
 [data-theme='dark'] {
   --color-bg: #121212;
@@ -38,6 +39,7 @@
   --color-text-secondary: #b3b3b3;
   --color-text-dim: #8a8a8a;
   --color-divider: #3a3a3a;
+  --color-institution: #fbc707;
 }
 
 * {
@@ -222,6 +224,16 @@ p {
   margin-top: var(--space-1);
   color: var(--color-text-dim);
   font-size: var(--font-size-caption);
+}
+
+.ui-logo {
+  height: 1em;
+  vertical-align: -0.15em;
+  margin: 0 0.2em;
+}
+
+.institution {
+  color: var(--color-institution);
 }
 
 h2 {
