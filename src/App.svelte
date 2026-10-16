@@ -1,6 +1,14 @@
 <script>
   import { onMount } from 'svelte'
   import { Bird, Mail } from '@lucide/svelte'
+  import BashMark from './BashMark.svelte'
+  import CachyOSMark from './CachyOSMark.svelte'
+  import FootMark from './FootMark.svelte'
+  import HeliumMark from './HeliumMark.svelte'
+  import MpvMark from './MpvMark.svelte'
+  import NeovimMark from './NeovimMark.svelte'
+  import ObsidianMark from './ObsidianMark.svelte'
+  import SwayMark from './SwayMark.svelte'
   import GithubMark from './GithubMark.svelte'
   import LinkedInMark from './LinkedInMark.svelte'
   import TypedTitle from './TypedTitle.svelte'
@@ -62,6 +70,17 @@
     { label: 'Playing the piano', subtext: '...only when I have the time to' },
     { label: 'Running', subtext: 'Short distances' },
     { label: 'Reading fiction', subtext: 'A chapter before bed' },
+  ]
+
+  const uses = [
+    { label: 'CachyOS', subtext: 'Operating system', icon: CachyOSMark, link: 'https://cachyos.org' },
+    { label: 'Sway', subtext: 'Window manager', icon: SwayMark, link: 'https://swaywm.org' },
+    { label: 'foot', subtext: 'Terminal emulator', icon: FootMark, link: 'https://codeberg.org/dnkl/foot' },
+    { label: 'Neovim', subtext: 'Text editor', icon: NeovimMark, link: 'https://neovim.io' },
+    { label: 'Bash', subtext: 'Shell', icon: BashMark, link: 'https://www.gnu.org/software/bash/' },
+    { label: 'Helium', subtext: 'Web browser', icon: HeliumMark, link: 'https://github.com/imputnet/helium' },
+    { label: 'Obsidian', subtext: 'Note-taking app', icon: ObsidianMark, link: 'https://obsidian.md' },
+    { label: 'mpv', subtext: 'Media player', icon: MpvMark, link: 'https://mpv.io' },
   ]
 
   let theme = $state(document.documentElement.dataset.theme)
@@ -126,17 +145,18 @@
 
     <section id="socials" aria-labelledby="socials-title">
       <h2 id="socials-title">Where to find me</h2>
-      <ul class="list-plain">
+      <ul class="socials-grid">
         {#each socials as social}
           {@const Icon = social.icon}
-          <li class="social-item">
-            <span class="social-icon"><Icon size={17} /></span>
+          {@const isExternal = social.link.startsWith('http')}
+          <li>
+            <Icon size={17} />
             <span>
               <a
                 class="item-title"
                 href={social.link}
-                target={social.link.startsWith('http') ? '_blank' : undefined}
-                rel={social.link.startsWith('http') ? 'noreferrer' : undefined}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noreferrer' : undefined}
                 >{social.label}</a
               >
               <span class="item-meta">{social.subtext}</span>
@@ -153,6 +173,25 @@
           <li>
             <span class="item-title">{hobby.label}</span>
             <span class="item-meta">{hobby.subtext}</span>
+          </li>
+        {/each}
+      </ul>
+    </section>
+
+    <section id="uses" aria-labelledby="uses-title">
+      <h2 id="uses-title">Stuff I use</h2>
+      <p class="section-sub">Incredible software made by incredible people.<br />My settings for some of these are available in my <a href="https://github.com/athaurian/dotfiles" target="_blank" rel="noreferrer">dotfiles</a>.</p>
+      <ul class="uses-grid">
+        {#each uses as tool}
+          {@const Icon = tool.icon}
+          <li>
+            <a class="use-link" href={tool.link} target="_blank" rel="noreferrer">
+              <Icon size={22} />
+              <span>
+                <span class="item-title">{tool.label}</span>
+                <span class="item-meta">{tool.subtext}</span>
+              </span>
+            </a>
           </li>
         {/each}
       </ul>
