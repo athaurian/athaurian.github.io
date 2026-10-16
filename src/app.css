@@ -52,7 +52,6 @@ body {
   min-width: 320px;
   min-height: 100vh;
   min-height: 100dvh;
-  overflow-x: clip;
   background-color: var(--color-bg);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
@@ -60,6 +59,12 @@ body {
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height);
   transition: background-color 160ms ease, color 160ms ease;
+}
+
+.banner,
+.banner::after {
+  background-size: cover;
+  background-position: center 20%;
 }
 
 .banner {
@@ -70,8 +75,6 @@ body {
   margin-left: calc(50% - 50dvw);
   height: clamp(48px, 8vh, 96px);
   background-image: url('/banner-light.webp');
-  background-size: cover;
-  background-position: center 20%;
   border-block: 1px solid var(--color-divider);
   box-shadow: inset 0 0 48px rgb(0 0 0 / 0.5);
 }
@@ -81,8 +84,6 @@ body {
   position: absolute;
   inset: 0;
   background-image: url('/banner-dark.webp');
-  background-size: cover;
-  background-position: center 20%;
   opacity: 0;
   transition: opacity 600ms ease;
 }
@@ -96,8 +97,8 @@ button {
 }
 
 .content {
-  width: min(calc(100% - var(--space-6) * 2), var(--content-width));
-  margin: 0 auto;
+  width: min(100% - var(--space-6) * 2, var(--content-width));
+  margin-inline: auto;
   padding: var(--space-4) 0 var(--space-7);
 }
 
@@ -120,13 +121,15 @@ footer p + p {
   margin-top: var(--space-2);
 }
 
-footer a {
+footer a,
+.section-sub a {
   color: inherit;
   text-decoration-color: var(--color-text-dim);
   text-underline-offset: var(--space-1);
 }
 
-footer a:hover {
+footer a:hover,
+.section-sub a:hover {
   color: var(--color-text-primary);
 }
 
@@ -147,7 +150,8 @@ footer a:hover {
   transition: color 160ms ease;
 }
 
-.icon-button:hover {
+.icon-button:hover,
+.use-link:hover > svg {
   color: var(--color-text-primary);
 }
 
@@ -243,23 +247,18 @@ li + li {
 }
 
 .item-title {
-  color: var(--color-text-primary);
   font-weight: var(--font-weight-bold);
 }
 
-.use-link .item-title,
-.project-link .item-title {
+:is(.use-link, .project-link) .item-title {
   text-decoration: underline;
   text-decoration-color: var(--color-divider);
-  text-decoration-thickness: 1px;
   text-underline-offset: var(--space-1);
-  transition: text-decoration-color 160ms ease, text-decoration-thickness 160ms ease;
+  transition: text-decoration-color 160ms ease;
 }
 
-.use-link:hover .item-title,
-.project-link:hover .item-title {
-  text-decoration-color: var(--color-text-primary);
-  text-decoration-thickness: 2px;
+:is(.use-link, .project-link):hover .item-title {
+  text-decoration-color: var(--color-text-secondary);
 }
 
 .item-meta {
@@ -320,10 +319,6 @@ li p {
   transition: color 160ms ease;
 }
 
-.use-link:hover > svg {
-  color: var(--color-text-primary);
-}
-
 .uses-grid .item-title {
   font-size: var(--font-size-small);
 }
@@ -360,16 +355,6 @@ li p {
   margin: calc(-1 * var(--space-4)) 0 var(--space-5);
   color: var(--color-text-secondary);
   font-size: var(--font-size-small);
-}
-
-.section-sub a {
-  color: inherit;
-  text-decoration-color: var(--color-text-dim);
-  text-underline-offset: var(--space-1);
-}
-
-.section-sub a:hover {
-  color: var(--color-text-primary);
 }
 
 :focus {
