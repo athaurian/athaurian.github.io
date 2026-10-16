@@ -135,9 +135,11 @@
       <ol>
         {#each projects as project}
           <li>
-            <a class="item-title" href={project.link} target="_blank" rel="noreferrer">{project.label}</a>
-            <span class="item-meta">{project.url}</span>
-            <p>{project.description}</p>
+            <a class="project-link" href={project.link} target="_blank" rel="noreferrer">
+              <span class="item-title">{project.label}</span>
+              <span class="item-meta">{project.url}</span>
+              <p>{project.description}</p>
+            </a>
           </li>
         {/each}
       </ol>
@@ -150,17 +152,18 @@
           {@const Icon = social.icon}
           {@const isExternal = social.link.startsWith('http')}
           <li>
-            <Icon size={17} />
-            <span>
-              <a
-                class="item-title"
-                href={social.link}
-                target={isExternal ? '_blank' : undefined}
-                rel={isExternal ? 'noreferrer' : undefined}
-                >{social.label}</a
-              >
-              <span class="item-meta">{social.subtext}</span>
-            </span>
+            <a
+              class="use-link"
+              href={social.link}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'noreferrer' : undefined}
+            >
+              <Icon size={17} />
+              <span>
+                <span class="item-title">{social.label}</span>
+                <span class="item-meta">{social.subtext}</span>
+              </span>
+            </a>
           </li>
         {/each}
       </ul>
