@@ -180,7 +180,7 @@
 
     <section id="uses" aria-labelledby="uses-title">
       <h2 id="uses-title">Stuff I use</h2>
-      <p class="section-sub">Incredible software made by incredible people.<br />My settings for some of these are available in my <a href="https://github.com/athaurian/dotfiles" target="_blank" rel="noreferrer">dotfiles</a>.</p>
+      <p class="section-sub">Software made by incredible people.<br />My settings for some of these are available in my <a href="https://github.com/athaurian/dotfiles" target="_blank" rel="noreferrer">dotfiles</a>.</p>
       <ul class="uses-grid">
         {#each uses as tool}
           {@const Icon = tool.icon}
