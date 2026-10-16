@@ -78,7 +78,7 @@
     { label: 'foot', subtext: 'Terminal emulator', icon: FootMark, link: 'https://codeberg.org/dnkl/foot' },
     { label: 'Neovim', subtext: 'Text editor', icon: NeovimMark, link: 'https://neovim.io' },
     { label: 'Bash', subtext: 'Shell', icon: BashMark, link: 'https://www.gnu.org/software/bash/' },
-    { label: 'Helium', subtext: 'Web browser', icon: HeliumMark, link: 'https://github.com/imputnet/helium' },
+    { label: 'Helium', subtext: 'Web browser', icon: HeliumMark, link: 'https://helium.computer' },
     { label: 'Obsidian', subtext: 'Note-taking app', icon: ObsidianMark, link: 'https://obsidian.md' },
     { label: 'mpv', subtext: 'Media player', icon: MpvMark, link: 'https://mpv.io' },
   ]
