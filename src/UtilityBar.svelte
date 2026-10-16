@@ -5,8 +5,8 @@
 
   let wallpaperUrl = $derived(
     theme === 'dark'
-      ? 'https://github.com/athaurian/athaurian.github.io/blob/main/wallpapers/background-flower-basket-sharp.webp'
-      : 'https://github.com/athaurian/athaurian.github.io/blob/main/wallpapers/background-roman-forum-sharp.webp',
+      ? 'https://github.com/athaurian/athaurian.github.io/blob/main/wallpapers/background-white-blossoms-black-sharp.webp'
+      : 'https://github.com/athaurian/athaurian.github.io/blob/main/wallpapers/background-white-plum-blossoms-watercolor-sharp.webp',
   )
 </script>
 
