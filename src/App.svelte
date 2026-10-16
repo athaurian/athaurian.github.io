@@ -122,7 +122,7 @@
         <p class="tagline">
           I'm a CS undergrad at
           <img class="ui-logo" src="/ui-logo.svg" alt="" />
-          <span class="institution">Universitas Indonesia</span><br />
+          <span class="institution">Universitas Indonesia</span><br>
           who likes making things for my own use.
           <span class="tagline-sub">Let's connect!</span>
         </p>
@@ -156,7 +156,7 @@
               class="use-link"
               href={social.link}
               target={isExternal ? '_blank' : undefined}
-              rel={isExternal ? 'noreferrer' : undefined}
+              rel="noreferrer"
             >
               <Icon size={17} />
               <span>
@@ -183,7 +183,7 @@
 
     <section id="uses" aria-labelledby="uses-title">
       <h2 id="uses-title">Stuff I use</h2>
-      <p class="section-sub">Software made by incredible people.<br />My settings for some of these are available in my <a href="https://github.com/athaurian/dotfiles" target="_blank" rel="noreferrer">dotfiles</a>.</p>
+      <p class="section-sub">Software made by incredible people.<br>My settings for some of these are available in my <a href="https://github.com/athaurian/dotfiles" target="_blank" rel="noreferrer">dotfiles</a>.</p>
       <ul class="uses-grid">
         {#each uses as tool}
           {@const Icon = tool.icon}
