@@ -12,3 +12,6 @@ dist
 .idea
 .DS_Store
 *.sw?
+
+# Local-only
+style-guide.md
