@@ -55,7 +55,7 @@
     {
       label: 'Twitter',
       link: 'https://twitter.com/athaurian',
-      subtext: 'No, I refuse to call it X',
+      subtext: 'The rebrand to X was a mistake',
       icon: Bird,
     },
     {
@@ -131,8 +131,8 @@
     <div class="banner" aria-hidden="true"></div>
 
     <section id="projects" aria-labelledby="projects-title">
-      <h2 id="projects-title">My stuff</h2>
-      <ol>
+      <h2 id="projects-title">Projects</h2>
+      <ol class="projects-list">
         {#each projects as project}
           <li>
             <a class="project-link" href={project.link} target="_blank" rel="noreferrer">
@@ -146,7 +146,7 @@
     </section>
 
     <section id="socials" aria-labelledby="socials-title">
-      <h2 id="socials-title">Where to find me</h2>
+      <h2 id="socials-title">Socials</h2>
       <ul class="socials-grid">
         {#each socials as social}
           {@const Icon = social.icon}
@@ -170,7 +170,7 @@
     </section>
 
     <section id="hobbies" aria-labelledby="hobbies-title">
-      <h2 id="hobbies-title">What I do in my free time</h2>
+      <h2 id="hobbies-title">Hobbies</h2>
       <ul>
         {#each hobbies as hobby}
           <li>
@@ -183,7 +183,7 @@
 
     <section id="uses" aria-labelledby="uses-title">
       <h2 id="uses-title">Stuff I use</h2>
-      <p class="section-sub">Software made by incredible people.<br>My settings for some of these are available in my <a href="https://github.com/athaurian/dotfiles" target="_blank" rel="noreferrer">dotfiles</a>.</p>
+      <p class="section-sub">Software written by people much smarter than me.</p>
       <ul class="uses-grid">
         {#each uses as tool}
           {@const Icon = tool.icon}
