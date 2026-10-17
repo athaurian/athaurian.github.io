@@ -22,7 +22,6 @@ const getBuildDate = () => {
 }
 const buildDate = getBuildDate()
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [svelte()],
   define: {
