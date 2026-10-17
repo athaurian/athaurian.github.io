@@ -87,16 +87,16 @@
 
   function toggleTheme() {
     theme = theme === 'dark' ? 'light' : 'dark'
-    document.documentElement.dataset.theme = theme
-    syncThemeColor()
   }
 
-  // The theme-color meta mirrors the page background, so its value is read
-  // from the `--color-bg` variable instead of duplicating the hex codes.
-  function syncThemeColor() {
+  // Mirror `theme` onto the document: the `data-theme` attribute switches the
+  // CSS variables, and the theme-color meta reads its value from `--color-bg`
+  // instead of duplicating the hex codes.
+  $effect(() => {
+    document.documentElement.dataset.theme = theme
     const meta = document.querySelector('meta[name="theme-color"]')
     if (meta) meta.setAttribute('content', getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim())
-  }
+  })
 
   onMount(() => {
     // The inline script in `index.html` keeps `data-theme` in sync with the

@@ -4,13 +4,12 @@
   let { pseudonym } = $props()
 
   let typed = $state('')
-  let done = $state(false)
+  const done = $derived(typed === pseudonym)
 
   onMount(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
     if (reduced.matches) {
       typed = pseudonym
-      done = true
       return
     }
     let i = 0
@@ -19,7 +18,6 @@
       i++
       typed = pseudonym.slice(0, i)
       if (i < pseudonym.length) timer = setTimeout(tick, 40 + Math.random() * 160)
-      else done = true
     }
     timer = setTimeout(tick, 300)
     return () => clearTimeout(timer)
