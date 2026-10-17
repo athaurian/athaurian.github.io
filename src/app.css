@@ -1,7 +1,11 @@
+/* The color variables below are mirrored inline in `index.html` and
+   `public/404.html` for flash-free theme application; update all three together. */
 :root {
   --font-sans: 'Source Sans 3', system-ui, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
   --font-mono: 'Source Code Pro', ui-monospace, monospace;
   --font-weight-normal: 400;
+  --font-weight-semibold: 600;
   --font-weight-bold: 700;
   --font-size-body: 1rem;
   --font-size-small: 0.8125rem;
@@ -21,20 +25,20 @@
   --content-width: 66ch;
   --avatar-size: 4rem;
   --focus-width: 2px;
-  --color-bg: #f3f2ee;
-  --color-text-primary: #201b15;
-  --color-text-secondary: #5c554c;
-  --color-text-dim: #746e62;
-  --color-divider: #d8d0be;
-  --color-institution: #7d5f00;
+  --color-bg: #f3efec;
+  --color-text-primary: #303030;
+  --color-text-secondary: #474747;
+  --color-text-dim: #676767;
+  --color-divider: #d8cdbc;
+  --color-institution: #725200;
 }
 [data-theme='dark'] {
-  --color-bg: #05070d;
-  --color-text-primary: #f1ebe0;
-  --color-text-secondary: #c5bba8;
-  --color-text-dim: #9c9486;
-  --color-divider: #1e242e;
-  --color-institution: #fbc707;
+  --color-bg: #050505;
+  --color-text-primary: #d4d4d4;
+  --color-text-secondary: #b3b3b3;
+  --color-text-dim: #8a8a8a;
+  --color-divider: #222222;
+  --color-institution: #f4bc45;
 }
 
 * {
@@ -109,6 +113,7 @@ main {
 footer {
   text-align: center;
   color: var(--color-text-dim);
+  font-family: var(--font-serif);
   font-size: var(--font-size-small);
 }
 
@@ -189,12 +194,14 @@ p {
 
 .greeting {
   color: var(--color-text-secondary);
+  font-family: var(--font-serif);
   font-size: var(--font-size-small);
   margin: 0 0 var(--space-1);
 }
 
 .tagline {
   color: var(--color-text-secondary);
+  font-family: var(--font-serif);
   font-size: var(--font-size-small);
 }
 
@@ -217,8 +224,9 @@ p {
 
 h2 {
   margin-bottom: var(--space-5);
+  font-family: var(--font-serif);
   font-size: var(--font-size-heading);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-semibold);
 }
 
 ul,
@@ -247,7 +255,8 @@ li + li {
 }
 
 .item-title {
-  font-weight: var(--font-weight-bold);
+  font-family: var(--font-serif);
+  font-weight: var(--font-weight-semibold);
 }
 
 :is(.use-link, .project-link) .item-title {
@@ -264,12 +273,14 @@ li + li {
 .item-meta {
   display: block;
   color: var(--color-text-dim);
+  font-family: var(--font-serif);
   font-size: var(--font-size-small);
 }
 
 li p {
   margin: var(--space-2) 0 0;
   color: var(--color-text-secondary);
+  font-family: var(--font-serif);
 }
 
 .socials-grid {
@@ -354,6 +365,7 @@ li p {
 .section-sub {
   margin: calc(-1 * var(--space-4)) 0 var(--space-5);
   color: var(--color-text-secondary);
+  font-family: var(--font-serif);
   font-size: var(--font-size-small);
 }
 
