@@ -4,12 +4,12 @@
    Type roles:
    - Google Sans 400: prose (descriptions, taglines, intros, footer) and the
      small labels (entry metas, list numbers)
-   - Google Sans 500: section headings, entry titles, and emphasis inside prose
-   - Google Sans Code 700: the typed name and its cursor
-   - Google Sans Code 600: the 404 numeral */
+   - Google Sans 500: entry titles, and emphasis inside prose
+   - Lora: section headings (500), the typed name and its cursor (700), and
+     the 404 numeral (600) */
 :root {
   --font-family: 'Google Sans', system-ui, sans-serif;
-  --font-mono: 'Google Sans Code', ui-monospace, monospace;
+  --font-serif: 'Lora', Georgia, serif;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
@@ -132,15 +132,13 @@ footer p + p {
   margin-top: var(--space-2);
 }
 
-footer a,
-.section-sub a {
+footer a {
   color: inherit;
   text-decoration-color: var(--color-text-dim);
   text-underline-offset: var(--space-1);
 }
 
-footer a:hover,
-.section-sub a:hover {
+footer a:hover {
   color: var(--color-text-primary);
 }
 
@@ -229,6 +227,7 @@ p {
 
 h2 {
   margin-bottom: var(--space-5);
+  font-family: var(--font-serif);
   font-size: var(--font-size-heading);
   font-weight: var(--font-weight-medium);
 }

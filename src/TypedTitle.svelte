@@ -29,7 +29,7 @@
 <style>
   h1 {
     margin-bottom: var(--space-2);
-    font-family: var(--font-mono);
+    font-family: var(--font-serif);
     font-size: var(--font-size-name);
     font-weight: var(--font-weight-bold);
     line-height: 1.2;
