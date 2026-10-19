@@ -22,7 +22,7 @@
     {
       label: 'dotfiles',
       description: 'My over-engineered Linux setup',
-      link: 'https://github.com/athaurian/dotfiles',
+      link: 'https://athaurian.github.io/dotfiles/',
       url: 'athaurian/dotfiles',
     },
     {
@@ -34,7 +34,7 @@
     {
       label: 'calpdf',
       description: 'A simple PDF toolkit to run alongside Calibre',
-      link: 'https://github.com/athaurian/calpdf',
+      link: 'https://athaurian.github.io/calpdf/',
       url: 'athaurian/calpdf',
     },
   ]
