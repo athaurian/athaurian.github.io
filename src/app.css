@@ -437,6 +437,16 @@ a:focus-visible {
   }
 }
 
+/* Hold the page still while the wipe runs. The body padding keeps the
+   scrollbar's width from shifting the layout after it is hidden. */
+html.theme-switching {
+  overflow: hidden;
+}
+
+html.theme-switching body {
+  padding-right: var(--theme-scrollbar-width, 0px);
+}
+
 html.theme-switching body,
 html.theme-switching .banner::after,
 html.theme-switching .icon-button,

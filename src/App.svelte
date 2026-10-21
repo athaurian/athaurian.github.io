@@ -105,10 +105,17 @@
 
     const root = document.documentElement
     const id = ++themeTransitionId
+    if (!root.classList.contains('theme-switching')) {
+      const scrollbarWidth = window.innerWidth - root.clientWidth
+      root.style.setProperty('--theme-scrollbar-width', `${scrollbarWidth}px`)
+    }
     root.classList.add('theme-switching')
 
     const finish = () => {
-      if (id === themeTransitionId) root.classList.remove('theme-switching')
+      if (id === themeTransitionId) {
+        root.classList.remove('theme-switching')
+        root.style.removeProperty('--theme-scrollbar-width')
+      }
     }
 
     try {
