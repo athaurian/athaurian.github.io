@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from 'svelte'
+  import { onMount, tick } from 'svelte'
   import { Bird, Mail } from '@lucide/svelte'
   import BashMark from './BashMark.svelte'
   import CachyOSMark from './CachyOSMark.svelte'
@@ -84,26 +84,48 @@
   ]
 
   let theme = $state(document.documentElement.dataset.theme)
+  let themeTransitionId = 0
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
 
-  function toggleTheme() {
-    theme = theme === 'dark' ? 'light' : 'dark'
-  }
-
-  // Mirror `theme` onto the document: the `data-theme` attribute switches the
-  // CSS variables, and the theme-color meta reads its value from `--color-bg`
-  // instead of duplicating the hex codes.
-  $effect(() => {
-    document.documentElement.dataset.theme = theme
+  function applyTheme(next) {
+    document.documentElement.dataset.theme = next
     const meta = document.querySelector('meta[name="theme-color"]')
     if (meta) meta.setAttribute('content', getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim())
-  })
+    theme = next
+    return tick()
+  }
+
+  function toggleTheme() {
+    const next = theme === 'dark' ? 'light' : 'dark'
+
+    if (!document.startViewTransition || reducedMotion.matches) {
+      applyTheme(next)
+      return
+    }
+
+    const root = document.documentElement
+    const id = ++themeTransitionId
+    root.classList.add('theme-switching')
+
+    const finish = () => {
+      if (id === themeTransitionId) root.classList.remove('theme-switching')
+    }
+
+    try {
+      const transition = document.startViewTransition(() => applyTheme(next))
+      transition.finished.then(finish, finish)
+    } catch {
+      finish()
+      applyTheme(next)
+    }
+  }
 
   onMount(() => {
-    // The inline script in `index.html` keeps `data-theme` in sync with the
-    // system theme, so this listener only mirrors that into state.
+    // The inline script in `index.html` applies system theme changes before
+    // this listener runs. This keeps the Svelte state and icon in sync.
     const media = window.matchMedia('(prefers-color-scheme: dark)')
     const followSystemTheme = (event) => {
-      theme = event.matches ? 'dark' : 'light'
+      applyTheme(event.matches ? 'dark' : 'light')
     }
     media.addEventListener('change', followSystemTheme)
     return () => media.removeEventListener('change', followSystemTheme)
