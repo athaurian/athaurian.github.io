@@ -3,8 +3,8 @@
   import { Bird, Mail } from '@lucide/svelte'
   import BashMark from './BashMark.svelte'
   import CachyOSMark from './CachyOSMark.svelte'
-  import FootMark from './FootMark.svelte'
   import HeliumMark from './HeliumMark.svelte'
+  import KittyMark from './KittyMark.svelte'
   import MpvMark from './MpvMark.svelte'
   import NeovimMark from './NeovimMark.svelte'
   import ObsidianMark from './ObsidianMark.svelte'
@@ -75,7 +75,7 @@
   const uses = [
     { label: 'CachyOS', subtext: 'Operating system', icon: CachyOSMark, link: 'https://cachyos.org' },
     { label: 'Sway', subtext: 'Window manager', icon: SwayMark, link: 'https://swaywm.org' },
-    { label: 'foot', subtext: 'Terminal emulator', icon: FootMark, link: 'https://codeberg.org/dnkl/foot' },
+    { label: 'kitty', subtext: 'Terminal emulator', icon: KittyMark, link: 'https://sw.kovidgoyal.net/kitty/' },
     { label: 'Neovim', subtext: 'Text editor', icon: NeovimMark, link: 'https://neovim.io' },
     { label: 'Bash', subtext: 'Shell', icon: BashMark, link: 'https://www.gnu.org/software/bash/' },
     { label: 'Helium', subtext: 'Web browser', icon: HeliumMark, link: 'https://helium.computer' },
