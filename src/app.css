@@ -2,14 +2,14 @@
    `public/404.html` for flash-free theme application; update all three together.
 
    Type roles:
-   - Google Sans 400: prose (descriptions, taglines, intros, footer) and the
+   - Source Sans 3 400: prose (descriptions, taglines, intros, footer) and the
      small labels (entry metas, list numbers)
-   - Google Sans 500: entry titles, and emphasis inside prose
-   - Lora: section headings (500), the typed name and its cursor (700), and
+   - Source Sans 3 500: entry titles, and emphasis inside prose
+   - Merriweather: section headings (500), the typed name and its cursor (700), and
      the 404 numeral (600) */
 :root {
-  --font-family: 'Google Sans', system-ui, sans-serif;
-  --font-serif: 'Lora', Georgia, serif;
+  --font-family: 'Source Sans 3', system-ui, sans-serif;
+  --font-serif: 'Merriweather', Georgia, serif;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
