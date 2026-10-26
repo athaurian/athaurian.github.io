@@ -1,4 +1,9 @@
+<div align="center">
+<img src="public/favicon.svg" alt="athaurian.github.io monogram" width="128">
+
 # athaurian.github.io
+
+</div>
 
 Hi. This is my single-page personal site, built with Vite and Svelte. Pull up the site to see it for yourself.
 
