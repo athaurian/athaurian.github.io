@@ -1,3 +1,4 @@
+<!-- Shared decorative SVG wrapper for the brand marks. -->
 <script>
   let { size, viewBox, children } = $props()
 </script>

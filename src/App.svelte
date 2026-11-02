@@ -1,3 +1,4 @@
+<!-- Page content, section data, and theme toggling. -->
 <script>
   import { onMount, tick } from 'svelte'
   import { Bird, Mail } from '@lucide/svelte'

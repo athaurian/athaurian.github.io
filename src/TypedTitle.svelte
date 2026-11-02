@@ -1,3 +1,4 @@
+<!-- Types the name on mount, then blinks the cursor. -->
 <script>
   import { onMount } from 'svelte'
 

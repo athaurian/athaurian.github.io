@@ -1,3 +1,4 @@
+<!-- Theme toggle and wallpaper link for the page header. -->
 <script>
   import { Eye } from '@lucide/svelte'
 

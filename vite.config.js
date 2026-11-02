@@ -1,12 +1,13 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 
-// Stamp the build date for the footer in Western Indonesia Time (UTC+7) using `Asia/Jakarta`.
+/** Return the ordinal suffix for a day of the month. */
 const nth = (day) => {
   if (day >= 11 && day <= 13) return 'th'
   return { 1: 'st', 2: 'nd', 3: 'rd' }[day % 10] || 'th'
 }
 
+/** Format the build date for the footer in Western Indonesia Time (UTC+7). */
 const getBuildDate = () => {
   const now = new Date()
   const parts = new Intl.DateTimeFormat('en-US', {
