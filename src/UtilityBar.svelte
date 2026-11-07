@@ -1,4 +1,4 @@
-<!-- Theme toggle and wallpaper link for the page header. -->
+<!-- Theme toggle and wallpaper link, aligned above the split. -->
 <script>
   import { Eye } from '@lucide/svelte'
 

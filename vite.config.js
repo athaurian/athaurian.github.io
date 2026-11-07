@@ -1,31 +1,6 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 
-/** Return the ordinal suffix for a day of the month. */
-const nth = (day) => {
-  if (day >= 11 && day <= 13) return 'th'
-  return { 1: 'st', 2: 'nd', 3: 'rd' }[day % 10] || 'th'
-}
-
-/** Format the build date for the footer in Western Indonesia Time (UTC+7). */
-const getBuildDate = () => {
-  const now = new Date()
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'Asia/Jakarta',
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  }).formatToParts(now)
-  const month = parts.find((p) => p.type === 'month').value
-  const day = parts.find((p) => p.type === 'day').value
-  const year = parts.find((p) => p.type === 'year').value
-  return `${month} ${day}${nth(Number(day))}, ${year}`
-}
-const buildDate = getBuildDate()
-
 export default defineConfig({
   plugins: [svelte()],
-  define: {
-    __BUILD_DATE__: JSON.stringify(buildDate),
-  },
 })
