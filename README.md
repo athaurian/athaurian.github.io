@@ -14,13 +14,12 @@ the site to see it for yourself.
 
 ## Run locally
 
-To run the site locally, follow these steps:
-
-1. Install the dependencies with `npm install`.
-2. Start the development server with `npm run dev`.
-
-To create a production build, run `npm run build`. To preview the build, run
-`npm run preview`.
+| Task | Command |
+| --- | --- |
+| Install the dependencies | `npm install` |
+| Start the development server | `npm run dev` |
+| Create a production build | `npm run build` |
+| Preview the production build | `npm run preview` |
 
 ## License
 
