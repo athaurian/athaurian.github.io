@@ -2,12 +2,13 @@
    `public/404.html` for flash-free theme application; update all three together.
 
    Type roles:
-   - Source Sans 3 400: prose (descriptions, taglines, intros, footer) and the
+   - Source Sans 3 400: prose (descriptions, taglines, intros) and the
      small labels (entry metas, list numbers)
    - Source Sans 3 500: entry titles, and emphasis inside prose
-   - Merriweather: section headings (500), the typed name and its cursor (700), and
-     the 404 numeral (600) */
+   - Merriweather: accordion summaries (500), the typed name and its cursor (700),
+     and the 404 numeral (600) */
 :root {
+  color-scheme: light;
   --font-family: 'Source Sans 3', system-ui, sans-serif;
   --font-serif: 'Merriweather', Georgia, serif;
   --font-weight-normal: 400;
@@ -28,24 +29,35 @@
   --space-6: 2rem;
   --space-7: 3rem;
 
-  --content-width: 66ch;
-  --avatar-size: 4rem;
+  --shell-width: 68rem;
+  --rail-measure: 38ch;
+  --links-measure: 52ch;
+  --spine-gutter: clamp(1rem, 2.5vw, 2rem);
+  --split-half-height: 9.125rem;
+  --avatar-size: 5rem;
   --focus-width: 2px;
   --color-bg: #f3efec;
   --color-text-primary: #303030;
   --color-text-secondary: #474747;
-  --color-text-dim: #676767;
+  --color-text-dim: #5f5f5f;
   --color-divider: #d8cdbc;
   --color-institution: #725200;
+  /* Blur is baked into these files (10px light, 26px dark); the sharp
+     originals live in `wallpapers/` and are linked from the utility bar. */
+  --wallpaper: url('/wallpaper-light.webp');
+  --wallpaper-scrim: rgb(243 239 236 / 0.66);
 }
 
 [data-theme='dark'] {
+  color-scheme: dark;
   --color-bg: #050505;
   --color-text-primary: #d4d4d4;
   --color-text-secondary: #b3b3b3;
-  --color-text-dim: #8a8a8a;
+  --color-text-dim: #9a9a9a;
   --color-divider: #222222;
   --color-institution: #f4bc45;
+  --wallpaper: url('/wallpaper-dark.webp');
+  --wallpaper-scrim: rgb(5 5 5 / 0.82);
 }
 
 * {
@@ -72,35 +84,25 @@ body {
   transition: background-color 160ms ease, color 160ms ease;
 }
 
-.banner,
-.banner::after {
+.backdrop {
+  position: fixed;
+  /* Oversized so the framing matches the approved look; the blur is baked
+     into the image, so this is no longer an edge-bleed workaround. */
+  inset: -6rem;
+  z-index: 0;
+  background-color: var(--color-bg);
+  background-image: var(--wallpaper);
+  background-position: center;
   background-size: cover;
-  background-position: center 20%;
+  background-repeat: no-repeat;
+  pointer-events: none;
 }
 
-.banner {
-  position: relative;
-  width: 100vw;
-  width: 100dvw;
-  margin-left: calc(50% - 50vw);
-  margin-left: calc(50% - 50dvw);
-  height: clamp(48px, 8vh, 96px);
-  background-image: url('/banner-light.webp');
-  border-block: 1px solid var(--color-divider);
-  box-shadow: inset 0 0 48px rgb(0 0 0 / 0.5);
-}
-
-.banner::after {
+.backdrop::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/banner-dark.webp');
-  opacity: 0;
-  transition: opacity 600ms ease;
-}
-
-[data-theme='dark'] .banner::after {
-  opacity: 1;
+  background: linear-gradient(var(--wallpaper-scrim), var(--wallpaper-scrim));
 }
 
 button {
@@ -108,44 +110,27 @@ button {
 }
 
 .content {
-  width: min(100% - var(--space-6) * 2, var(--content-width));
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: min(100% - var(--space-6) * 2, var(--shell-width));
+  min-height: 100vh;
+  min-height: 100dvh;
   margin-inline: auto;
-  padding: var(--space-4) 0 var(--space-7);
-}
-
-main {
-  padding-top: var(--space-2);
-}
-
-footer {
-  text-align: center;
-  color: var(--color-text-dim);
-  font-size: var(--font-size-small);
-}
-
-footer p,
-.tagline {
-  margin: 0;
-}
-
-footer p + p {
-  margin-top: var(--space-2);
-}
-
-footer a {
-  color: inherit;
-  text-decoration-color: var(--color-text-dim);
-  text-underline-offset: var(--space-1);
-}
-
-footer a:hover {
-  color: var(--color-text-primary);
+  /* Center the split vertically, but never closer than 2rem to the top.
+     `--split-half-height` is half its natural height. */
+  padding: max(var(--space-6), calc(50dvh - var(--split-half-height))) 0 var(--space-6);
 }
 
 .utility {
+  position: absolute;
+  top: var(--space-4);
+  left: 0;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
-  margin-bottom: var(--space-5);
+  width: 100%;
 }
 
 .icon-button {
@@ -164,20 +149,43 @@ footer a:hover {
   color: var(--color-text-primary);
 }
 
-section {
-  padding: var(--space-6) 0;
-  scroll-margin-top: var(--space-5);
+.split {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  padding-block: var(--space-5);
 }
 
-section + section {
-  border-top: 1px solid var(--color-divider);
+.split::before {
+  content: '';
+  position: absolute;
+  inset-block: var(--space-5);
+  left: 50%;
+  width: 1px;
+  background: var(--color-divider);
 }
 
-.home {
+.identity {
   display: flex;
-  align-items: center;
-  gap: var(--space-5);
-  padding-top: 0;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding-inline-end: var(--spine-gutter);
+}
+
+.identity-inner {
+  position: sticky;
+  top: var(--space-6);
+  width: 100%;
+  max-width: var(--rail-measure);
+}
+
+.links {
+  min-width: 0;
+  padding-inline-start: var(--spine-gutter);
+}
+
+.links-inner {
+  max-width: var(--links-measure);
 }
 
 .avatar {
@@ -185,13 +193,13 @@ section + section {
   width: var(--avatar-size);
   height: var(--avatar-size);
   flex: 0 0 var(--avatar-size);
+  margin-bottom: var(--space-4);
   border: 1px solid var(--color-divider);
   border-radius: 50%;
   object-fit: cover;
 }
 
 h1,
-h2,
 p {
   margin-top: 0;
 }
@@ -203,6 +211,7 @@ p {
 }
 
 .tagline {
+  margin: 0;
   color: var(--color-text-secondary);
   font-size: var(--font-size-small);
 }
@@ -212,6 +221,35 @@ p {
   margin-top: var(--space-1);
   color: var(--color-text-dim);
   font-size: var(--font-size-caption);
+}
+
+.connect-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+  padding-left: 0;
+  list-style: none;
+  scroll-margin-top: var(--space-5);
+}
+
+.connect-links li {
+  padding-left: 0;
+  margin-top: 0;
+}
+
+.connect-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1);
+  border-radius: var(--space-1);
+  color: var(--color-text-dim);
+  transition: color 160ms ease;
+}
+
+.connect-links a:hover {
+  color: var(--color-text-primary);
 }
 
 .ui-logo {
@@ -225,20 +263,12 @@ p {
   font-weight: var(--font-weight-medium);
 }
 
-h2 {
-  margin-bottom: var(--space-5);
-  font-family: var(--font-serif);
-  font-size: var(--font-size-heading);
-  font-weight: var(--font-weight-medium);
-}
-
 ul,
 ol {
   margin: 0;
   padding-left: var(--space-5);
 }
 
-.socials-grid,
 .uses-grid {
   padding-left: 0;
   list-style: none;
@@ -253,7 +283,19 @@ li + li {
 }
 
 .projects-list li + li {
-  margin-top: var(--space-3);
+  margin-top: var(--space-1);
+}
+
+.projects-list .project-link {
+  padding-block: var(--space-1);
+}
+
+.projects-list li p {
+  margin-top: var(--space-1);
+}
+
+.projects-list .item-meta {
+  line-height: 1.35;
 }
 
 .projects-list li::marker {
@@ -262,7 +304,6 @@ li + li {
   font-variant-numeric: tabular-nums;
 }
 
-.socials-grid > li,
 .uses-grid > li {
   padding-left: 0;
 }
@@ -294,32 +335,14 @@ li p {
   font-size: var(--font-size-small);
 }
 
-.socials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--space-4) var(--space-5);
-}
-
-.socials-grid .use-link {
-  align-items: flex-start;
-}
-
-.socials-grid .use-link > svg {
-  margin-top: var(--space-1);
-}
-
-.socials-grid > li + li,
 .uses-grid > li + li {
   margin-top: 0;
-}
-
-.uses-grid > li + li {
   border-top: 1px solid var(--color-divider);
 }
 
 .use-link,
 .project-link {
-  padding: var(--space-3) var(--space-2);
+  padding: var(--space-2);
   margin: 0 calc(-1 * var(--space-2));
   color: inherit;
   text-decoration: none;
@@ -341,12 +364,17 @@ li p {
   transition: color 160ms ease;
 }
 
+.uses-grid .use-link {
+  padding-block: var(--space-1);
+}
+
 .uses-grid .item-title {
   font-size: var(--font-size-small);
 }
 
 .uses-grid .item-meta {
   font-size: var(--font-size-caption);
+  line-height: 1.3;
 }
 
 @media (min-width: 40rem) {
@@ -374,9 +402,124 @@ li p {
 }
 
 .section-sub {
-  margin: calc(-1 * var(--space-4)) 0 var(--space-5);
+  margin: 0 0 var(--space-3);
   color: var(--color-text-secondary);
   font-size: var(--font-size-small);
+}
+
+.disclosure {
+  interpolate-size: allow-keywords;
+  border-top: 1px solid var(--color-divider);
+  scroll-margin-top: var(--space-5);
+}
+
+.disclosure::details-content {
+  content-visibility: hidden;
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    content-visibility 300ms allow-discrete;
+}
+
+.disclosure[open]::details-content {
+  content-visibility: visible;
+  block-size: auto;
+}
+
+.disclosure:first-child {
+  border-top: 0;
+}
+
+.disclosure summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-2);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+  list-style: none;
+  cursor: pointer;
+}
+
+.disclosure summary h2 {
+  margin: 0;
+  font: inherit;
+}
+
+.disclosure:first-child summary {
+  padding-top: 0;
+}
+
+.disclosure summary::-webkit-details-marker {
+  display: none;
+}
+
+.disclosure summary svg {
+  flex: none;
+  color: var(--color-text-dim);
+  transition: transform 160ms ease;
+}
+
+.disclosure[open] summary svg {
+  transform: rotate(180deg);
+}
+
+.disclosure-body {
+  padding-block: 0 var(--space-3);
+}
+
+.disclosure-body .section-sub,
+.disclosure-body li {
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 140ms ease,
+    transform 160ms ease;
+}
+
+.disclosure.is-open .disclosure-body .section-sub,
+.disclosure.is-open .disclosure-body li {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 200ms ease,
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.disclosure.is-open .disclosure-body .section-sub {
+  transition-delay: 20ms;
+}
+
+.disclosure.is-open .disclosure-body li:nth-child(1) {
+  transition-delay: 40ms;
+}
+
+.disclosure.is-open .disclosure-body li:nth-child(2) {
+  transition-delay: 70ms;
+}
+
+.disclosure.is-open .disclosure-body li:nth-child(3) {
+  transition-delay: 100ms;
+}
+
+.disclosure.is-open .disclosure-body li:nth-child(4) {
+  transition-delay: 130ms;
+}
+
+.disclosure.is-open .disclosure-body li:nth-child(5) {
+  transition-delay: 160ms;
+}
+
+.disclosure.is-open .disclosure-body li:nth-child(n + 6) {
+  transition-delay: 190ms;
+}
+
+.plain-list > li + li {
+  margin-top: var(--space-3);
 }
 
 :focus {
@@ -392,9 +535,37 @@ a:focus-visible {
   text-decoration-thickness: var(--focus-width);
 }
 
-@media (max-width: 34rem) {
-  main {
-    padding-top: var(--space-4);
+@media (max-width: 56rem) {
+  .content {
+    padding-top: max(var(--space-5), 12vh);
+  }
+
+  .split {
+    display: block;
+    padding: var(--space-5) 0 var(--space-7);
+  }
+
+  .split::before {
+    display: none;
+  }
+
+  .identity {
+    display: block;
+    padding-inline-end: 0;
+  }
+
+  .identity-inner {
+    position: static;
+    max-width: none;
+  }
+
+  .links {
+    margin-top: var(--space-6);
+    padding: var(--space-6) 0 0;
+  }
+
+  .links-inner {
+    max-width: none;
   }
 }
 
@@ -448,8 +619,9 @@ html.theme-switching body {
 }
 
 html.theme-switching body,
-html.theme-switching .banner::after,
 html.theme-switching .icon-button,
+html.theme-switching .connect-links a,
+html.theme-switching .disclosure summary svg,
 html.theme-switching .use-link > svg,
 html.theme-switching .use-link .item-title,
 html.theme-switching .project-link .item-title {
@@ -462,11 +634,25 @@ html.theme-switching .project-link .item-title {
   }
 
   body,
-  .banner::after,
   .icon-button,
+  .connect-links a,
+  .disclosure summary svg,
   .use-link > svg,
   .use-link .item-title,
   .project-link .item-title {
+    transition: none;
+  }
+
+  .disclosure::details-content {
+    transition: none;
+  }
+
+  .disclosure-body .section-sub,
+  .disclosure-body li,
+  .disclosure.is-open .disclosure-body .section-sub,
+  .disclosure.is-open .disclosure-body li {
+    opacity: 1;
+    transform: none;
     transition: none;
   }
 

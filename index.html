@@ -8,15 +8,19 @@
     <meta property="og:title" content="athaurian" />
     <meta property="og:description" content="Hi, I'm athaurian. I'm a CS undergrad at Universitas Indonesia, and I like making things for my own use." />
     <meta property="og:image" content="https://athaurian.github.io/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="White plum blossoms in watercolor beside white blossoms on a black background" />
     <meta property="og:url" content="https://athaurian.github.io/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="athaurian" />
+    <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="athaurian" />
     <meta name="twitter:description" content="Hi, I'm athaurian. I'm a CS undergrad at Universitas Indonesia, and I like making things for my own use." />
+    <meta name="twitter:image" content="https://athaurian.github.io/og.jpg" />
+    <meta name="twitter:image:alt" content="White plum blossoms in watercolor beside white blossoms on a black background" />
     <meta name="theme-color" content="#f3efec" />
     <link rel="icon" href="https://athaurian.github.io/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="https://athaurian.github.io/favicon.svg" />
@@ -26,29 +30,47 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300..900;1,300..900&family=Source+Code+Pro:ital,wght@0,300..900;1,300..900&family=Merriweather:ital,wght@0,300..900;1,300..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300..900&family=Merriweather:wght@300..900&display=swap"
       rel="stylesheet"
     />
+    <link rel="preload" as="image" href="/wallpaper-light.webp" media="(prefers-color-scheme: light)" />
+    <link rel="preload" as="image" href="/wallpaper-dark.webp" media="(prefers-color-scheme: dark)" />
     <title>athaurian</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "athaurian",
+        "url": "https://athaurian.github.io/",
+        "image": "https://athaurian.github.io/pfp.webp",
+        "sameAs": [
+          "https://github.com/athaurian",
+          "https://www.linkedin.com/in/athaurian/",
+          "https://twitter.com/athaurian"
+        ]
+      }
+    </script>
     <style>
       /* This block inlines theme variables to prevent a flash of incorrect colors before the
          bundled CSS loads. The inline `<script>` element sets `data-theme`, and these
          rules immediately resolve the CSS custom properties. Light doubles as
          the `:root` fallback so colors stay defined even without `data-theme`. */
       :root {
+        color-scheme: light;
         --color-bg: #f3efec;
         --color-text-primary: #303030;
         --color-text-secondary: #474747;
-        --color-text-dim: #676767;
+        --color-text-dim: #5f5f5f;
         --color-divider: #d8cdbc;
         --color-institution: #725200;
       }
 
       [data-theme='dark'] {
+        color-scheme: dark;
         --color-bg: #050505;
         --color-text-primary: #d4d4d4;
         --color-text-secondary: #b3b3b3;
-        --color-text-dim: #8a8a8a;
+        --color-text-dim: #9a9a9a;
         --color-divider: #222222;
         --color-institution: #f4bc45;
       }
@@ -77,10 +99,23 @@
   <body>
     <div id="app"></div>
     <noscript>
-      <p style="max-width: 66ch; margin: 2rem auto; text-align: center; color: var(--color-text-secondary)">
-        JavaScript is off, so there's nothing to render. The
-        <a href="https://github.com/athaurian/athaurian.github.io" style="color: inherit">source</a> is on GitHub.
-      </p>
+      <div style="max-width: 66ch; margin: 2rem auto; padding: 0 1rem; color: var(--color-text-secondary)">
+        <p><strong style="color: var(--color-text-primary)">athaurian</strong> — CS undergrad at Universitas Indonesia, making things for my own use.</p>
+        <p>
+          This layout needs JavaScript for the collapsible sections. The projects are
+          <a href="https://athaurian.github.io/dotfiles/" style="color: inherit">dotfiles</a>,
+          <a href="https://github.com/athaurian/forge" style="color: inherit">forge</a>, and
+          <a href="https://athaurian.github.io/calpdf/" style="color: inherit">calpdf</a>.
+        </p>
+        <p>
+          Find me on
+          <a href="https://github.com/athaurian" style="color: inherit">GitHub</a>,
+          <a href="https://www.linkedin.com/in/athaurian/" style="color: inherit">LinkedIn</a>,
+          <a href="https://twitter.com/athaurian" style="color: inherit">X</a>, or
+          <a href="mailto:athaurian@duck.com" style="color: inherit">email</a>.
+          The <a href="https://github.com/athaurian/athaurian.github.io" style="color: inherit">source</a> is on GitHub.
+        </p>
+      </div>
     </noscript>
     <script type="module" src="/src/main.js"></script>
   </body>

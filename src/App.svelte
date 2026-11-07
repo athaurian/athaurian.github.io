@@ -1,7 +1,7 @@
 <!-- Page content, section data, and theme toggling. -->
 <script>
   import { onMount, tick } from 'svelte'
-  import { Bird, Mail } from '@lucide/svelte'
+  import { ChevronDown, Mail } from '@lucide/svelte'
   import BashMark from './BashMark.svelte'
   import CachyOSMark from './CachyOSMark.svelte'
   import HeliumMark from './HeliumMark.svelte'
@@ -12,12 +12,12 @@
   import SwayMark from './SwayMark.svelte'
   import GithubMark from './GithubMark.svelte'
   import LinkedInMark from './LinkedInMark.svelte'
+  import XMark from './XMark.svelte'
   import TypedTitle from './TypedTitle.svelte'
   import UtilityBar from './UtilityBar.svelte'
 
   // --- Editable content ---
   const pseudonym = 'athaurian'
-  const lastBuilt = __BUILD_DATE__
 
   const projects = [
     {
@@ -57,7 +57,7 @@
       label: 'Twitter',
       link: 'https://twitter.com/athaurian',
       subtext: 'The rebrand to X was a mistake',
-      icon: Bird,
+      icon: XMark,
     },
     {
       label: 'Email',
@@ -87,6 +87,53 @@
   let theme = $state(document.documentElement.dataset.theme)
   let themeTransitionId = 0
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+
+  // The rows inside a closed `<details>` are not rendered, so their stagger
+  // transition can only start one frame after the panel becomes visible.
+  function stagger(node) {
+    let frame = 0
+
+    const sync = () => {
+      cancelAnimationFrame(frame)
+
+      if (!node.open) {
+        node.classList.remove('is-open')
+        return
+      }
+
+      frame = requestAnimationFrame(() => {
+        if (node.open) node.classList.add('is-open')
+      })
+    }
+
+    node.addEventListener('toggle', sync)
+    sync()
+
+    return {
+      destroy() {
+        cancelAnimationFrame(frame)
+        node.removeEventListener('toggle', sync)
+      },
+    }
+  }
+
+  // Old links such as `/#uses` still exist, and should reveal their panel.
+  function openHashTarget() {
+    let id = window.location.hash.slice(1)
+    if (!id) return
+
+    try {
+      id = decodeURIComponent(id)
+    } catch {
+      return
+    }
+
+    const panel = document.getElementById(id)?.closest('details')
+    if (!panel || panel.open) return
+
+    panel.open = true
+    requestAnimationFrame(() => panel.scrollIntoView({ block: 'start' }))
+  }
 
   function applyTheme(next) {
     document.documentElement.dataset.theme = next
@@ -136,103 +183,135 @@
       applyTheme(event.matches ? 'dark' : 'light')
     }
     media.addEventListener('change', followSystemTheme)
-    return () => media.removeEventListener('change', followSystemTheme)
+
+    openHashTarget()
+    window.addEventListener('hashchange', openHashTarget)
+
+    // The opposite theme's wallpaper is only needed after a toggle. At ~15 KB
+    // each, fetching both while idle removes the late pop-in behind the wipe.
+    let idleId
+    const prefetchWallpapers = () => {
+      for (const src of ['/wallpaper-light.webp', '/wallpaper-dark.webp']) {
+        const image = new Image()
+        image.src = src
+        image.decode?.().catch(() => {})
+      }
+    }
+    if ('requestIdleCallback' in window) {
+      idleId = window.requestIdleCallback(prefetchWallpapers, { timeout: 2500 })
+    } else {
+      idleId = setTimeout(prefetchWallpapers, 1200)
+    }
+
+    return () => {
+      media.removeEventListener('change', followSystemTheme)
+      window.removeEventListener('hashchange', openHashTarget)
+      if ('cancelIdleCallback' in window) window.cancelIdleCallback(idleId)
+      else clearTimeout(idleId)
+    }
   })
 </script>
 
+<div class="backdrop" aria-hidden="true"></div>
 <div class="content">
-  <main>
-    <UtilityBar {theme} onToggleTheme={toggleTheme} />
+  <UtilityBar {theme} onToggleTheme={toggleTheme} />
 
-    <section id="home" class="home" aria-labelledby="home-title">
-      <img class="avatar" src="/pfp.webp" alt="" />
-      <div>
+  <main class="split">
+    <aside id="home" class="identity" aria-labelledby="home-title">
+      <div class="identity-inner">
+        <img class="avatar" src="/pfp.webp" alt="" width="80" height="80" decoding="async" />
         <p class="greeting">Hi, I'm</p>
         <TypedTitle {pseudonym} />
         <p class="tagline">
           I'm a CS undergrad at
           <img class="ui-logo" src="/ui-logo.svg" alt="" />
-          <span class="institution">Universitas Indonesia</span>,<br>
+          <span class="institution">Universitas Indonesia</span>,
           and I like making things for my own use.
           <span class="tagline-sub">Let's connect!</span>
         </p>
+        <ul id="socials" class="connect-links">
+          {#each socials as social}
+            {@const Icon = social.icon}
+            {@const isExternal = social.link.startsWith('http')}
+            <li>
+              <a
+                href={social.link}
+                target={isExternal ? '_blank' : undefined}
+                rel="noreferrer"
+                aria-label={social.label}
+                title={`${social.label} — ${social.subtext}`}
+              >
+                <Icon size={18} />
+              </a>
+            </li>
+          {/each}
+        </ul>
       </div>
-    </section>
-    <div class="banner" aria-hidden="true"></div>
+    </aside>
 
-    <section id="projects" aria-labelledby="projects-title">
-      <h2 id="projects-title">Projects</h2>
-      <ol class="projects-list">
-        {#each projects as project}
-          <li>
-            <a class="project-link" href={project.link} target="_blank" rel="noreferrer">
-              <span class="item-title">{project.label}</span>
-              <span class="item-meta">{project.url}</span>
-              <p>{project.description}</p>
-            </a>
-          </li>
-        {/each}
-      </ol>
-    </section>
+    <div class="links">
+      <div class="links-inner">
+        <details class="disclosure" id="projects" name="sections" use:stagger>
+          <summary>
+            <h2>Projects</h2>
+            <ChevronDown size={18} aria-hidden="true" />
+          </summary>
+          <div class="disclosure-body">
+            <ol class="projects-list">
+              {#each projects as project}
+                <li>
+                  <a class="project-link" href={project.link} target="_blank" rel="noreferrer">
+                    <span class="item-title">{project.label}</span>
+                    <span class="item-meta">{project.url}</span>
+                    <p>{project.description}</p>
+                  </a>
+                </li>
+              {/each}
+            </ol>
+          </div>
+        </details>
 
-    <section id="socials" aria-labelledby="socials-title">
-      <h2 id="socials-title">Socials</h2>
-      <ul class="socials-grid">
-        {#each socials as social}
-          {@const Icon = social.icon}
-          {@const isExternal = social.link.startsWith('http')}
-          <li>
-            <a
-              class="use-link"
-              href={social.link}
-              target={isExternal ? '_blank' : undefined}
-              rel="noreferrer"
-            >
-              <Icon size={17} />
-              <span>
-                <span class="item-title">{social.label}</span>
-                <span class="item-meta">{social.subtext}</span>
-              </span>
-            </a>
-          </li>
-        {/each}
-      </ul>
-    </section>
+        <details class="disclosure" id="hobbies" name="sections" use:stagger>
+          <summary>
+            <h2>Hobbies</h2>
+            <ChevronDown size={18} aria-hidden="true" />
+          </summary>
+          <div class="disclosure-body">
+            <ul class="plain-list">
+              {#each hobbies as hobby}
+                <li>
+                  <span class="item-title">{hobby.label}</span>
+                  <span class="item-meta">{hobby.subtext}</span>
+                </li>
+              {/each}
+            </ul>
+          </div>
+        </details>
 
-    <section id="hobbies" aria-labelledby="hobbies-title">
-      <h2 id="hobbies-title">Hobbies</h2>
-      <ul>
-        {#each hobbies as hobby}
-          <li>
-            <span class="item-title">{hobby.label}</span>
-            <span class="item-meta">{hobby.subtext}</span>
-          </li>
-        {/each}
-      </ul>
-    </section>
-
-    <section id="uses" aria-labelledby="uses-title">
-      <h2 id="uses-title">Stuff I use</h2>
-      <p class="section-sub">Software written by people much smarter than me.</p>
-      <ul class="uses-grid">
-        {#each uses as tool}
-          {@const Icon = tool.icon}
-          <li>
-            <a class="use-link" href={tool.link} target="_blank" rel="noreferrer">
-              <Icon size={22} />
-              <span>
-                <span class="item-title">{tool.label}</span>
-                <span class="item-meta">{tool.subtext}</span>
-              </span>
-            </a>
-          </li>
-        {/each}
-      </ul>
-    </section>
+        <details class="disclosure" id="uses" name="sections" use:stagger>
+          <summary>
+            <h2>Stuff I use</h2>
+            <ChevronDown size={18} aria-hidden="true" />
+          </summary>
+          <div class="disclosure-body">
+            <p class="section-sub">Software written by people much smarter than me.</p>
+            <ul class="uses-grid">
+              {#each uses as tool}
+                {@const Icon = tool.icon}
+                <li>
+                  <a class="use-link" href={tool.link} target="_blank" rel="noreferrer">
+                    <Icon size={22} />
+                    <span>
+                      <span class="item-title">{tool.label}</span>
+                      <span class="item-meta">{tool.subtext}</span>
+                    </span>
+                  </a>
+                </li>
+              {/each}
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
   </main>
-
-  <footer>
-    <p>Last changed on {lastBuilt}</p>
-    <p>Made with ❤️ and <a href="https://svelte.dev" target="_blank" rel="noreferrer">Svelte</a> · <a href="https://github.com/athaurian/athaurian.github.io" target="_blank" rel="noreferrer">View the source</a> on GitHub</p>
-  </footer>
 </div>
