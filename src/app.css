@@ -1,9 +1,10 @@
 /* Keep these colors in sync with index.html and public/404.html.
-   Type: Source Sans 3 for prose and titles; Merriweather for headings and the name. */
+   Type: Source Sans 3 for prose; Merriweather for headings; Homemade Apple for the quote. */
 :root {
   color-scheme: light;
   --font-family: 'Source Sans 3', system-ui, sans-serif;
   --font-serif: 'Merriweather', Georgia, serif;
+  --font-hand: 'Homemade Apple', 'Segoe Script', 'Bradley Hand', cursive;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
@@ -240,6 +241,16 @@ p {
 
 .connect-links a:hover {
   color: var(--color-text-primary);
+}
+
+.identity-quote {
+  margin: var(--space-4) 0 0 var(--space-1);
+  color: var(--color-text-secondary);
+  font-family: var(--font-hand);
+  font-size: 1.75rem;
+  line-height: 1.4;
+  transform: rotate(-1.5deg);
+  transform-origin: left center;
 }
 
 .ui-logo {
