@@ -24,10 +24,12 @@
   --space-7: 3rem;
 
   --shell-width: 68rem;
-  --rail-measure: 38ch;
-  --links-measure: 52ch;
+  /* Both rails have the same width. This keeps the content centered around the spine. */
+  --rail-measure: 45ch;
+  --links-measure: 45ch;
   --spine-gutter: clamp(1rem, 2.5vw, 2rem);
-  --split-half-height: 9.125rem;
+  /* This value is half the height of the split when the panels are closed. Change it if the identity rail height changes. */
+  --split-half-height: 12.1875rem;
   --avatar-size: 5rem;
   --focus-width: 2px;
   --color-bg: #f3efec;
