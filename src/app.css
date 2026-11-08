@@ -24,11 +24,7 @@
   --space-6: 2rem;
   --space-7: 3rem;
 
-  --shell-width: 68rem;
-  /* The identity rail is narrower than the link rail so its short prose stays
-     centered in its half instead of drifting away from the spine. */
-  --rail-measure: 38ch;
-  --links-measure: 45ch;
+  --shell-width: 45rem;
   --spine-gutter: clamp(1rem, 2.5vw, 2rem);
   /* This value is half the height of the split when the panels are closed. Change it if the identity rail height changes. */
   --split-half-height: 12.1875rem;
@@ -126,13 +122,12 @@ samp {
 }
 
 .utility {
-  position: absolute;
-  top: var(--space-4);
-  left: 0;
+  position: fixed;
+  top: var(--space-5);
+  inset-inline: var(--space-5);
   z-index: 10;
   display: flex;
   justify-content: space-between;
-  width: 100%;
 }
 
 .icon-button {
@@ -178,16 +173,11 @@ samp {
   position: sticky;
   top: var(--space-6);
   width: 100%;
-  max-width: var(--rail-measure);
 }
 
 .links {
   min-width: 0;
   padding-inline-start: var(--spine-gutter);
-}
-
-.links-inner {
-  max-width: var(--links-measure);
 }
 
 .avatar {
@@ -596,16 +586,11 @@ a:focus-visible {
 
   .identity-inner {
     position: static;
-    max-width: none;
   }
 
   .links {
     margin-top: var(--space-6);
     padding: var(--space-6) 0 0;
-  }
-
-  .links-inner {
-    max-width: none;
   }
 }
 
