@@ -223,7 +223,7 @@
           I'm a CS undergrad at
           <img class="ui-logo" src="/ui-logo.svg" alt="" />
           <span class="institution">Universitas Indonesia</span>,
-          and I like making things for my own use.
+          and I<br class="tagline-break" /> like making things for my own use.
           <span class="tagline-sub">Let's connect!</span>
         </p>
         <ul id="socials" class="connect-links">
