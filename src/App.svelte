@@ -243,6 +243,7 @@
             </li>
           {/each}
         </ul>
+        <p class="identity-quote">Less is more.</p>
       </div>
     </aside>
 
