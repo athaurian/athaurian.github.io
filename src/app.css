@@ -36,7 +36,7 @@
   --color-text-dim: #5f5f5f;
   --color-divider: #d8cdbc;
   --color-institution: #725200;
-  /* Blur is baked in (10px light, 26px dark); sharp originals are in wallpapers/. */
+  /* Blur is baked in (16px light, 26px dark); sharp originals are in wallpapers/. */
   --wallpaper: url('/wallpaper-light.webp');
   --wallpaper-scrim: rgb(243 239 236 / 0.66);
 }
