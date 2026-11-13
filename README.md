@@ -14,11 +14,11 @@ the site to see it for yourself.
 
 ## Run locally
 
-| Task | Command |
-| --- | --- |
-| Install the dependencies | `npm install` |
-| Start the development server | `npm run dev` |
-| Create a production build | `npm run build` |
+| Task                         | Command           |
+| ---------------------------- | ----------------- |
+| Install the dependencies     | `npm install`     |
+| Start the development server | `npm run dev`     |
+| Create a production build    | `npm run build`   |
 | Preview the production build | `npm run preview` |
 
 ## License
