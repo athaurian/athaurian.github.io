@@ -21,9 +21,9 @@ npm run preview  # preview the production build locally
 
 ## Editing content
 
-- **Page copy and links**: Edit the `projects`, `writing`, `notes`, and `elsewhere` arrays at the top of `src/App.svelte`.
-- **Theme toggle and wallpaper picker**: Edit `src/UtilityBar.svelte`.
-- **Downloadable wallpapers**: Place static assets in `wallpapers/`.
+- **Page copy and links:** Edit the `projects`, `writing`, `notes`, and `elsewhere` arrays at the top of `src/App.svelte`.
+- **Theme toggle and wallpaper picker:** Edit `src/UtilityBar.svelte`.
+- **Downloadable wallpapers:** Place static assets in `wallpapers/`.
 
 ## Deployment
 
