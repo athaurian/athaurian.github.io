@@ -5,22 +5,30 @@
 
 </div>
 
-Hi. This is my single-page personal site, built with Vite and Svelte. Pull up
-the site to see it for yourself.
+Hi. This is my single-page personal site, built with Vite and Svelte. The site
+is live at [athaurian.github.io](https://athaurian.github.io).
 
-## Requirements
+## Development
 
-- Node.js 22.12 or newer.
+Requires Node.js `22.12+`.
 
-## Run locally
+```bash
+npm install
+npm run dev      # start local dev server
+npm run build    # build static output into dist/
+npm run preview  # preview the production build locally
+```
 
-| Task                         | Command           |
-| ---------------------------- | ----------------- |
-| Install the dependencies     | `npm install`     |
-| Start the development server | `npm run dev`     |
-| Create a production build    | `npm run build`   |
-| Preview the production build | `npm run preview` |
+## Editing content
+
+- **Page copy and links**: Edit the `projects`, `writing`, `notes`, and `elsewhere` arrays at the top of `src/App.svelte`.
+- **Theme toggle and wallpaper picker**: Edit `src/UtilityBar.svelte`.
+- **Downloadable wallpapers**: Place static assets in `wallpapers/`.
+
+## Deployment
+
+Pushing to `main` (or triggering the workflow manually via `workflow_dispatch`) runs `.github/workflows/deploy.yml`, which builds `dist/` and publishes it to GitHub Pages.
 
 ## License
 
-Released under the MIT license. See [LICENSE](LICENSE) for the full text.
+MIT
