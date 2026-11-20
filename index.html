@@ -22,12 +22,11 @@
     <meta name="twitter:image" content="https://athaurian.github.io/og.jpg" />
     <meta name="twitter:image:alt" content="White plum blossoms in watercolor beside white blossoms on a black background" />
     <meta name="theme-color" content="#f3efec" />
-    <link rel="icon" href="https://athaurian.github.io/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/svg+xml" href="https://athaurian.github.io/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="https://athaurian.github.io/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="https://athaurian.github.io/favicon-192x192.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="https://athaurian.github.io/apple-touch-icon.png" />
-    <link rel="preload" href="/fonts/geist-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="stylesheet" href="/fonts.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -62,21 +61,23 @@
       :root {
         color-scheme: light;
         --color-bg: #f3efec;
-        --color-text-primary: #303030;
-        --color-text-secondary: #474747;
-        --color-text-dim: #5f5f5f;
-        --color-divider: #d8cdbc;
-        --color-institution: #725200;
+        --color-text-primary: #292929;
+        --color-text-secondary: #414141;
+        --color-text-dim: #565656;
+        --color-link-hover: #1d1d1d;
+        --color-divider: #dcd1bf;
+        --color-institution: #553c00;
       }
 
       [data-theme='dark'] {
         color-scheme: dark;
         --color-bg: #050505;
-        --color-text-primary: #d4d4d4;
-        --color-text-secondary: #b3b3b3;
-        --color-text-dim: #9a9a9a;
-        --color-divider: #222222;
-        --color-institution: #f4bc45;
+        --color-text-primary: #cccccc;
+        --color-text-secondary: #ababab;
+        --color-text-dim: #909090;
+        --color-link-hover: #dbdbdb;
+        --color-divider: #252525;
+        --color-institution: #d6a53b;
       }
 
       html, body {
@@ -85,11 +86,20 @@
       }
     </style>
     <script>
-      // Apply the system theme before paint and keep theme-color in sync.
+      // Apply the saved theme before paint, falling back to the system theme; keep theme-color in sync.
       (() => {
         const mq = window.matchMedia('(prefers-color-scheme: dark)')
+        const stored = () => {
+          try {
+            const value = localStorage.getItem('theme')
+            return value === 'light' || value === 'dark' ? value : null
+          } catch {
+            return null
+          }
+        }
         const apply = () => {
-          document.documentElement.dataset.theme = mq.matches ? 'dark' : 'light'
+          const theme = stored() ?? (mq.matches ? 'dark' : 'light')
+          document.documentElement.dataset.theme = theme
           const meta = document.querySelector('meta[name="theme-color"]')
           if (meta) meta.content = getComputedStyle(document.documentElement).getPropertyValue('--color-bg').trim()
         }
@@ -115,6 +125,7 @@
           <a href="https://www.linkedin.com/in/athaurian/" style="color: inherit">LinkedIn</a>,
           <a href="https://twitter.com/athaurian" style="color: inherit">X</a>, or
           <a href="mailto:athaurian@duck.com" style="color: inherit">email</a>.
+          There is more in the <a href="/about/" style="color: inherit">about page</a>.
           The <a href="https://github.com/athaurian/athaurian.github.io" style="color: inherit">source</a> is on GitHub.
         </p>
       </div>

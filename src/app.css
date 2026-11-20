@@ -1,9 +1,11 @@
-/* Keep these colors in sync with index.html and public/404.html.
-   Type: Geist for prose; Merriweather for headings; Geist Mono for code; Homemade Apple for the quote. */
+/* Mirror the inline palette in index.html.
+   Use Merriweather on document pages, Geist on home copy, Geist Mono in code,
+   and Homemade Apple for the quote. */
 :root {
   color-scheme: light;
-  --font-family: 'Geist', system-ui, sans-serif;
   --font-serif: 'Merriweather', Georgia, serif;
+  --font-family: var(--font-serif);
+  --font-ui: 'Geist', system-ui, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-hand: 'Homemade Apple', 'Segoe Script', 'Bradley Hand', cursive;
   --font-weight-normal: 400;
@@ -24,18 +26,20 @@
   --space-6: 2rem;
   --space-7: 3rem;
 
-  --shell-width: 45rem;
+  --shell-width: 53rem;
   --spine-gutter: clamp(1rem, 2.5vw, 2rem);
   /* This value is half the height of the split when the panels are closed. Change it if the identity rail height changes. */
   --split-half-height: 12.1875rem;
+  --top-band-height: 3.25rem;
   --avatar-size: 5rem;
   --focus-width: 2px;
   --color-bg: #f3efec;
-  --color-text-primary: #303030;
-  --color-text-secondary: #474747;
-  --color-text-dim: #5f5f5f;
-  --color-divider: #d8cdbc;
-  --color-institution: #725200;
+  --color-text-primary: #292929;
+  --color-text-secondary: #414141;
+  --color-text-dim: #565656;
+  --color-link-hover: #1d1d1d;
+  --color-divider: #dcd1bf;
+  --color-institution: #553c00;
   /* Blur is baked in (16px light, 26px dark); sharp originals are in wallpapers/. */
   --wallpaper: url('/wallpaper-light.webp');
   --wallpaper-scrim: rgb(243 239 236 / 0.66);
@@ -44,11 +48,12 @@
 [data-theme='dark'] {
   color-scheme: dark;
   --color-bg: #050505;
-  --color-text-primary: #d4d4d4;
-  --color-text-secondary: #b3b3b3;
-  --color-text-dim: #9a9a9a;
-  --color-divider: #222222;
-  --color-institution: #f4bc45;
+  --color-text-primary: #cccccc;
+  --color-text-secondary: #ababab;
+  --color-text-dim: #909090;
+  --color-link-hover: #dbdbdb;
+  --color-divider: #252525;
+  --color-institution: #d6a53b;
   --wallpaper: url('/wallpaper-dark.webp');
   --wallpaper-scrim: rgb(5 5 5 / 0.82);
 }
@@ -75,6 +80,29 @@ body {
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height);
   transition: background-color 160ms ease, color 160ms ease;
+}
+
+.skip-link {
+  position: fixed;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 20;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-divider);
+  border-radius: 4px;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transform: translateY(calc(-100% - var(--space-3)));
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+#content {
+  scroll-margin-top: calc(var(--top-band-height) + var(--space-4));
 }
 
 .backdrop {
@@ -113,27 +141,39 @@ samp {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  width: min(100% - var(--space-6) * 2, var(--shell-width));
+  width: 100%;
+  max-width: var(--shell-width);
   min-height: 100vh;
   min-height: 100dvh;
   margin-inline: auto;
   /* Center vertically, but never closer than 2rem to the top. */
-  padding: max(var(--space-6), calc(50dvh - var(--split-half-height))) 0 var(--space-6);
+  padding: max(var(--space-6), calc(50dvh - var(--split-half-height))) var(--space-5) var(--space-6);
 }
 
 .utility {
   position: fixed;
-  top: var(--space-5);
+  top: var(--space-3);
   inset-inline: var(--space-5);
   z-index: 10;
   display: flex;
   justify-content: space-between;
 }
 
+/* Keep content from showing through the fixed icons. */
+.utility::before {
+  content: '';
+  position: fixed;
+  inset: 0 0 auto;
+  height: var(--top-band-height);
+  z-index: -1;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-divider);
+}
+
 .icon-button {
   display: inline-flex;
   align-items: center;
-  padding: var(--space-2);
+  padding: var(--space-1);
   border: 0;
   background: transparent;
   color: var(--color-text-secondary);
@@ -143,7 +183,7 @@ samp {
 
 .icon-button:hover,
 .use-link:hover > svg {
-  color: var(--color-text-primary);
+  color: var(--color-link-hover);
 }
 
 .split {
@@ -151,6 +191,12 @@ samp {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   padding-block: var(--space-5);
+}
+
+/* Use Geist for the home intro and panel copy; keep headings in Merriweather. */
+.home .identity-inner,
+.home .links {
+  font-family: var(--font-ui);
 }
 
 .split::before {
@@ -180,6 +226,7 @@ samp {
   padding-inline-start: var(--spine-gutter);
 }
 
+/* Morph the face between home and the page bar instead of fading two copies. */
 .avatar {
   display: block;
   width: var(--avatar-size);
@@ -189,6 +236,7 @@ samp {
   border: 1px solid var(--color-divider);
   border-radius: 50%;
   object-fit: cover;
+  view-transition-name: avatar;
 }
 
 h1,
@@ -202,6 +250,14 @@ p {
   margin: 0 0 var(--space-1);
 }
 
+.site-name {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-name);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+}
+
 .tagline {
   margin: 0;
   color: var(--color-text-secondary);
@@ -213,17 +269,6 @@ p {
   margin-top: var(--space-1);
   color: var(--color-text-dim);
   font-size: var(--font-size-caption);
-}
-
-/* Match the mobile wrap point when the rails sit side by side. */
-.tagline-break {
-  display: none;
-}
-
-@media (min-width: 56.0625rem) {
-  .tagline-break {
-    display: inline;
-  }
 }
 
 .connect-links {
@@ -252,7 +297,7 @@ p {
 }
 
 .connect-links a:hover {
-  color: var(--color-text-primary);
+  color: var(--color-link-hover);
 }
 
 .identity-quote {
@@ -263,6 +308,18 @@ p {
   line-height: 1.4;
   transform: rotate(-1.5deg);
   transform-origin: left center;
+}
+
+.site-nav {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+  font-size: var(--font-size-small);
+}
+
+.site-nav a {
+  color: var(--color-text-dim);
+  text-decoration: none;
 }
 
 .ui-logo {
@@ -333,13 +390,13 @@ li + li {
 
 :is(.use-link, .project-link) .item-title {
   text-decoration: underline;
-  text-decoration-color: var(--color-divider);
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
   text-underline-offset: var(--space-1);
-  transition: text-decoration-color 160ms ease;
 }
 
-:is(.use-link, .project-link):hover .item-title {
-  text-decoration-color: var(--color-text-secondary);
+[data-theme='dark'] :is(.use-link, .project-link) .item-title {
+  text-decoration-color: color-mix(in srgb, currentColor 55%, transparent);
 }
 
 .item-meta {
@@ -551,6 +608,219 @@ li p {
   margin-top: var(--space-3);
 }
 
+/* --- Document page: about --- */
+.content.is-document {
+  /* Start document pages at the top, clear of the utility bar. */
+  padding-top: calc(var(--top-band-height) + var(--space-6));
+}
+
+/* --- Reader layout --- */
+.reader {
+  width: min(100%, 40rem);
+  margin-inline: auto;
+  padding-block-end: var(--space-7);
+}
+
+.page-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  font-size: var(--font-size-small);
+}
+
+.page-bar-home {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 50%;
+}
+
+/* Scale the whole frame so the clip, rim, and photo move together.
+   Use clip-path to keep the circle smooth because border-radius rasterizes before scaling. */
+.page-bar-avatar-frame {
+  display: block;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 1px;
+  background-color: var(--color-divider);
+  clip-path: circle(50%);
+  view-transition-name: avatar;
+  transition:
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 160ms ease;
+}
+
+.page-bar-avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  clip-path: circle(50%);
+}
+
+.page-bar-home:hover .page-bar-avatar-frame,
+.page-bar-home:focus-visible .page-bar-avatar-frame {
+  transform: scale(1.07);
+  background-color: var(--color-text-dim);
+}
+
+/* Brighten the rim in dark mode; light mode already reads clearly. */
+[data-theme='dark'] .page-bar-home:hover .page-bar-avatar-frame,
+[data-theme='dark'] .page-bar-home:focus-visible .page-bar-avatar-frame {
+  background-color: var(--color-text-primary);
+}
+
+.page-bar nav {
+  display: flex;
+  gap: var(--space-4);
+  font-family: var(--font-ui);
+}
+
+.page-bar nav a {
+  color: var(--color-text-dim);
+  text-decoration: none;
+}
+
+.page-bar nav a[aria-current='page'] {
+  color: var(--color-text-primary);
+}
+
+.reader h1 {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+}
+
+.page-lede {
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body);
+}
+
+.page-lede a {
+  color: inherit;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: var(--space-1);
+}
+
+[data-theme='dark'] .page-lede a {
+  text-decoration-color: color-mix(in srgb, currentColor 55%, transparent);
+}
+
+/* --- About content --- */
+.prose {
+  font-size: 1rem;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose > * + * {
+  margin-top: var(--space-4);
+}
+
+.prose h2 {
+  margin-top: var(--space-6);
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.4;
+}
+
+.prose h3 {
+  margin-top: var(--space-5);
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.4;
+}
+
+.prose a {
+  color: inherit;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: var(--space-1);
+}
+
+/* Use a lighter underline in dark mode because full strength reads too heavy. */
+[data-theme='dark'] .prose a {
+  text-decoration-color: color-mix(in srgb, currentColor 55%, transparent);
+}
+
+/* --- About tool groups --- */
+.stack {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--space-5);
+}
+
+.stack-group h3 {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-dim);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
+}
+
+.prose .stack-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.prose .stack-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+}
+
+.prose .stack-list li span {
+  font-family: var(--font-ui);
+}
+
+.prose .stack-list svg {
+  flex: none;
+  color: var(--color-text-secondary);
+}
+
+/* --- About colophon --- */
+.prose .colophon {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+}
+
+.prose .colophon dt {
+  color: var(--color-text-dim);
+  font-family: var(--font-ui);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.5;
+}
+
+.prose .colophon dd {
+  min-width: 0;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-ui);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
 :focus {
   outline: var(--focus-width) solid var(--color-text-primary);
   outline-offset: var(--space-1);
@@ -594,6 +864,65 @@ a:focus-visible {
   }
 }
 
+/* Fade and slide only the page body; leave the root snapshot still for the theme wipe. */
+@view-transition {
+  navigation: auto;
+}
+
+.content {
+  view-transition-name: page;
+}
+
+/* Fade the bar with the page when entering or leaving home. */
+.page-bar {
+  view-transition-name: page-bar;
+}
+
+::view-transition-group(page) {
+  animation-duration: 180ms;
+}
+
+::view-transition-group(page-bar),
+::view-transition-old(page-bar),
+::view-transition-new(page-bar) {
+  animation-duration: 180ms;
+}
+
+/* Give the avatar a moment longer to travel between its two sizes. */
+::view-transition-group(avatar) {
+  animation-duration: 240ms;
+  animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+/* Let the theme wipe cover the bar and face in one snapshot. */
+html.theme-switching .page-bar,
+html.theme-switching .avatar,
+html.theme-switching .page-bar-avatar-frame {
+  view-transition-name: none;
+}
+
+::view-transition-old(page) {
+  animation: 180ms cubic-bezier(0.2, 0.7, 0.3, 1) both page-leave;
+}
+
+::view-transition-new(page) {
+  animation: 180ms cubic-bezier(0.2, 0.7, 0.3, 1) both page-enter;
+}
+
+@keyframes page-leave {
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
 @property --theme-wipe {
   syntax: "<percentage>";
   inherits: false;
@@ -606,8 +935,14 @@ a:focus-visible {
   mix-blend-mode: normal;
 }
 
+/* Hide the new root snapshot during page changes; the browser can capture it before the wallpaper paints.
+   Theme toggles keep both snapshots so the wipe reveals the new theme. */
+html:not(.theme-switching)::view-transition-new(root) {
+  visibility: hidden;
+}
+
 /* 45deg moves the wipe edge corner-to-corner at any viewport size. */
-::view-transition-new(root) {
+html.theme-switching::view-transition-new(root) {
   --theme-wipe: 100%;
   -webkit-mask-image: linear-gradient(
     45deg,
@@ -632,7 +967,7 @@ a:focus-visible {
   }
 }
 
-/* Freeze the page during the wipe; padding preserves scrollbar width. */
+/* Freeze scrolling during the wipe and pad the body to keep scrollbar width. */
 html.theme-switching {
   overflow: hidden;
 }
@@ -641,13 +976,17 @@ html.theme-switching body {
   padding-right: var(--theme-scrollbar-width, 0px);
 }
 
+/* Let the theme wipe animate the root snapshot; exclude the page group. */
+html.theme-switching .content {
+  view-transition-name: none;
+}
+
 html.theme-switching body,
 html.theme-switching .icon-button,
 html.theme-switching .connect-links a,
+html.theme-switching .page-bar-avatar-frame,
 html.theme-switching .disclosure summary svg,
-html.theme-switching .use-link > svg,
-html.theme-switching .use-link .item-title,
-html.theme-switching .project-link .item-title {
+html.theme-switching .use-link > svg {
   transition: none;
 }
 
@@ -657,12 +996,13 @@ html.theme-switching .project-link .item-title {
   }
 
   body,
+  .skip-link,
   .icon-button,
   .connect-links a,
+  .page-bar-avatar,
+  .page-bar-avatar-frame,
   .disclosure summary svg,
-  .use-link > svg,
-  .use-link .item-title,
-  .project-link .item-title {
+  .use-link > svg {
     transition: none;
   }
 
@@ -679,8 +1019,23 @@ html.theme-switching .project-link .item-title {
     transition: none;
   }
 
+  .page-bar-home:hover .page-bar-avatar-frame,
+  .page-bar-home:focus-visible .page-bar-avatar-frame {
+    transform: none;
+  }
+
   ::view-transition-old(root),
-  ::view-transition-new(root) {
+  ::view-transition-new(root),
+  ::view-transition-old(page),
+  ::view-transition-new(page),
+  ::view-transition-old(page-bar),
+  ::view-transition-new(page-bar),
+  ::view-transition-old(avatar),
+  ::view-transition-new(avatar),
+  ::view-transition-group(root),
+  ::view-transition-group(page),
+  ::view-transition-group(page-bar),
+  ::view-transition-group(avatar) {
     animation: none;
   }
 }

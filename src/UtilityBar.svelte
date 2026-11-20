@@ -10,6 +10,7 @@
   let { theme, onToggleTheme } = $props()
 
   let themeIcon = $derived(theme === 'dark' ? moonIcon : sunIcon)
+  let themeLabel = $derived(theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme')
 
   let wallpaperUrl = $derived(
     theme === 'dark'
@@ -33,9 +34,8 @@
     class="icon-button"
     type="button"
     onclick={onToggleTheme}
-    aria-label="Toggle theme"
-    aria-pressed={theme === 'dark'}
-    title="Toggle theme"
+    aria-label={themeLabel}
+    title={themeLabel}
   >
     <svg
       width="17"
