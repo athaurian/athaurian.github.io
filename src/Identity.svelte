@@ -67,6 +67,7 @@
     </ul>
     <nav class="site-nav" aria-label="Site">
       <a href="/about/">About</a>
+      <a href="/writing/">Writing</a>
     </nav>
     <p class="identity-quote">Less is more.</p>
   </div>
