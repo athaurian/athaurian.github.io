@@ -25,16 +25,9 @@
   })
 </script>
 
-<h1 id="home-title" aria-label={pseudonym}>{typed}<span class="cursor" class:blink={done} aria-hidden="true">_</span></h1>
+<h1 id="home-title" class="site-name" aria-label={pseudonym}>{typed}<span class="cursor" class:blink={done} aria-hidden="true">_</span></h1>
 
 <style>
-  h1 {
-    margin-bottom: var(--space-2);
-    font-family: var(--font-serif);
-    font-size: var(--font-size-name);
-    font-weight: var(--font-weight-bold);
-    line-height: 1.2;
-  }
   .cursor {
     margin-left: var(--space-1);
     color: var(--color-text-secondary);
