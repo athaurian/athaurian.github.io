@@ -1,17 +1,8 @@
-/* Self-hosted Geist variable fonts (SIL OFL 1.1, see /fonts/OFL.txt).
-   Latin subsets; Merriweather and Homemade Apple load from Google Fonts. */
+/* Geist is self-hosted under SIL OFL 1.1; see /fonts/OFL.txt. */
 @font-face {
   font-family: 'Geist';
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
   src: url('/fonts/geist-variable.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Geist Mono';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('/fonts/geist-mono-variable.woff2') format('woff2');
 }
