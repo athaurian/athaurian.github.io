@@ -5,6 +5,18 @@ import { formatTitle, pages } from './src/pages.js'
 const origin = 'https://athaurian.github.io'
 const buildDate = new Date().toISOString().slice(0, 10)
 
+// Vite's define skips .svelte files, so replace the token before Svelte compiles.
+function buildDateDefine() {
+  return {
+    name: 'build-date-define',
+    enforce: 'pre',
+    transform(code, id) {
+      if (!id.endsWith('.svelte')) return
+      return code.replaceAll('__BUILD_DATE__', JSON.stringify(buildDate))
+    },
+  }
+}
+
 function escapeHtml(value) {
   return String(value).replace(
     /[&<>"]/g,
@@ -152,5 +164,5 @@ function staticPages() {
 
 export default defineConfig({
   define: { __BUILD_DATE__: JSON.stringify(buildDate) },
-  plugins: [svelte(), staticPages()],
+  plugins: [buildDateDefine(), svelte(), staticPages()],
 })

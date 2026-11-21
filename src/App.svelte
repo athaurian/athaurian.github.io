@@ -114,16 +114,16 @@
   {:else if route.name === 'about'}
     <About />
   {:else if route.name === 'writing'}
-    <main class="reader">
+    <main id="content" class="reader">
       <PageBar current="writing" />
-      <h1 id="content">Writing</h1>
-      <p class="page-lede">Nothing here (yet).</p>
+      <h1>Writing</h1>
+      <p class="page-note">Nothing here (yet).</p>
     </main>
   {:else}
-    <main class="reader">
+    <main id="content" class="reader">
       <PageBar />
-      <h1 id="content">Page not found</h1>
-      <p class="page-lede">That link doesn't point anywhere. <a href="/">Go home</a>.</p>
+      <h1>Page not found</h1>
+      <p class="page-note">That link doesn't point anywhere. <a href="/">Go home</a>.</p>
     </main>
   {/if}
 </div>

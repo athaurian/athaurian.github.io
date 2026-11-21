@@ -1,20 +1,19 @@
-/* Mirror the inline palette in index.html.
-   Use Merriweather on document pages, Geist on home copy, Geist Mono in code,
-   and Homemade Apple for the quote. */
+/* Keep the inline palette in index.html in sync with these tokens. */
 :root {
   color-scheme: light;
   --font-serif: 'Merriweather', Georgia, serif;
   --font-family: var(--font-serif);
   --font-ui: 'Geist', system-ui, sans-serif;
-  --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-hand: 'Homemade Apple', 'Segoe Script', 'Bradley Hand', cursive;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-bold: 700;
   --font-size-body: 1rem;
+  --font-size-detail: 0.9375rem;
   --font-size-small: 0.8125rem;
   --font-size-caption: 0.75rem;
   --font-size-heading: 1.125rem;
+  --font-size-display: 1.75rem;
   --font-size-name: clamp(1.75rem, 5vw, 2.5rem);
   --line-height: 1.65;
 
@@ -25,6 +24,8 @@
   --space-5: 1.5rem;
   --space-6: 2rem;
   --space-7: 3rem;
+  --space-panel-projects: 1.3125rem;
+  --space-panel-list: 1.6875rem;
 
   --shell-width: 53rem;
   --spine-gutter: clamp(1rem, 2.5vw, 2rem);
@@ -40,6 +41,7 @@
   --color-link-hover: #1d1d1d;
   --color-divider: #dcd1bf;
   --color-institution: #553c00;
+  --color-logo: #b8860b;
   /* Blur is baked in (16px light, 26px dark); sharp originals are in wallpapers/. */
   --wallpaper: url('/wallpaper-light.webp');
   --wallpaper-scrim: rgb(243 239 236 / 0.66);
@@ -54,6 +56,7 @@
   --color-link-hover: #dbdbdb;
   --color-divider: #252525;
   --color-institution: #d6a53b;
+  --color-logo: #f4bc45;
   --wallpaper: url('/wallpaper-dark.webp');
   --wallpaper-scrim: rgb(5 5 5 / 0.82);
 }
@@ -127,13 +130,6 @@ body {
 
 button {
   font: inherit;
-}
-
-code,
-kbd,
-pre,
-samp {
-  font-family: var(--font-mono);
 }
 
 .content {
@@ -286,7 +282,9 @@ p {
   margin-top: 0;
 }
 
-.connect-links a {
+.connect-links a,
+.connect-links .connect-static,
+.connect-links button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -296,15 +294,32 @@ p {
   transition: color 160ms ease;
 }
 
-.connect-links a:hover {
+.connect-links button {
+  padding: var(--space-1);
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.connect-links a:hover,
+.connect-links button:hover,
+.connect-links button.is-copied {
   color: var(--color-link-hover);
+}
+
+.connect-links button.is-copied::after {
+  content: 'Copied "' attr(data-copy) '"';
+  margin-inline-start: var(--space-2);
+  font-size: var(--font-size-caption);
+  white-space: nowrap;
 }
 
 .identity-quote {
   margin: var(--space-4) 0 0 var(--space-1);
   color: var(--color-text-secondary);
   font-family: var(--font-hand);
-  font-size: 1.75rem;
+  font-size: var(--font-size-display);
   line-height: 1.4;
   transform: rotate(-1.5deg);
   transform-origin: left center;
@@ -313,8 +328,12 @@ p {
 .site-nav {
   display: flex;
   gap: var(--space-4);
-  margin-top: var(--space-4);
+  font-family: var(--font-ui);
   font-size: var(--font-size-small);
+}
+
+.home .site-nav {
+  margin-top: var(--space-4);
 }
 
 .site-nav a {
@@ -322,10 +341,16 @@ p {
   text-decoration: none;
 }
 
+.site-nav a[aria-current='page'] {
+  color: var(--color-text-primary);
+}
+
 .ui-logo {
+  width: 0.915em;
   height: 1em;
   vertical-align: -0.15em;
   margin: 0 0.2em;
+  color: var(--color-logo);
 }
 
 .institution {
@@ -551,11 +576,11 @@ li p {
 
 /* Give expanded panels even breathing room above and below their contents. */
 .disclosure-body:has(.project-link) {
-  padding-block-end: 1.3125rem;
+  padding-block-end: var(--space-panel-projects);
 }
 
 .disclosure-body:has(.plain-list) {
-  padding-block-end: 1.6875rem;
+  padding-block-end: var(--space-panel-list);
 }
 
 .disclosure-body .section-sub,
@@ -672,48 +697,35 @@ li p {
   background-color: var(--color-text-primary);
 }
 
-.page-bar nav {
-  display: flex;
-  gap: var(--space-4);
-  font-family: var(--font-ui);
-}
-
-.page-bar nav a {
-  color: var(--color-text-dim);
-  text-decoration: none;
-}
-
-.page-bar nav a[aria-current='page'] {
-  color: var(--color-text-primary);
-}
-
 .reader h1 {
   margin: 0 0 var(--space-2);
   font-family: var(--font-serif);
-  font-size: 1.75rem;
+  font-size: var(--font-size-display);
   font-weight: var(--font-weight-bold);
   line-height: 1.25;
 }
 
-.page-lede {
+.intro,
+.page-note {
   margin: 0 0 var(--space-4);
   color: var(--color-text-secondary);
   font-size: var(--font-size-body);
 }
 
-.page-lede a {
+.page-note a {
   color: inherit;
   text-decoration-color: currentColor;
   text-decoration-thickness: 1px;
   text-underline-offset: var(--space-1);
 }
 
-[data-theme='dark'] .page-lede a {
+[data-theme='dark'] .page-note a {
   text-decoration-color: color-mix(in srgb, currentColor 55%, transparent);
 }
 
 /* --- About content --- */
 .prose {
+  color: var(--color-text-secondary);
   font-size: 1rem;
 }
 
@@ -727,6 +739,7 @@ li p {
 
 .prose h2 {
   margin-top: var(--space-6);
+  color: var(--color-text-primary);
   font-family: var(--font-serif);
   font-size: 1.125rem;
   line-height: 1.4;
@@ -734,6 +747,7 @@ li p {
 
 .prose h3 {
   margin-top: var(--space-5);
+  color: var(--color-text-primary);
   font-family: var(--font-serif);
   font-size: 1.0625rem;
   line-height: 1.4;
@@ -749,6 +763,16 @@ li p {
 /* Use a lighter underline in dark mode because full strength reads too heavy. */
 [data-theme='dark'] .prose a {
   text-decoration-color: color-mix(in srgb, currentColor 55%, transparent);
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-divider);
+  margin-block: var(--space-6);
+}
+
+.prose .sign-off {
+  color: var(--color-text-secondary);
 }
 
 /* --- About tool groups --- */
@@ -783,11 +807,8 @@ li p {
   padding: 0;
   margin: 0;
   color: var(--color-text-secondary);
-  font-size: 0.9375rem;
-}
-
-.prose .stack-list li span {
   font-family: var(--font-ui);
+  font-size: var(--font-size-detail);
 }
 
 .prose .stack-list svg {
@@ -816,9 +837,22 @@ li p {
   margin: 0;
   color: var(--color-text-secondary);
   font-family: var(--font-ui);
-  font-size: 0.9375rem;
+  font-size: var(--font-size-detail);
   line-height: 1.5;
   overflow-wrap: anywhere;
+}
+
+/* Announce state changes to screen readers without affecting layout. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 :focus {
@@ -984,6 +1018,8 @@ html.theme-switching .content {
 html.theme-switching body,
 html.theme-switching .icon-button,
 html.theme-switching .connect-links a,
+html.theme-switching .connect-links .connect-static,
+html.theme-switching .connect-links button,
 html.theme-switching .page-bar-avatar-frame,
 html.theme-switching .disclosure summary svg,
 html.theme-switching .use-link > svg {
@@ -999,6 +1035,8 @@ html.theme-switching .use-link > svg {
   .skip-link,
   .icon-button,
   .connect-links a,
+  .connect-links .connect-static,
+  .connect-links button,
   .page-bar-avatar,
   .page-bar-avatar-frame,
   .disclosure summary svg,
