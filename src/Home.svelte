@@ -2,20 +2,13 @@
 <script>
   import { onMount } from 'svelte'
   import { ChevronDown } from '@lucide/svelte'
-  import BashMark from './BashMark.svelte'
-  import CachyOSMark from './CachyOSMark.svelte'
-  import HeliumMark from './HeliumMark.svelte'
   import Identity from './Identity.svelte'
-  import KittyMark from './KittyMark.svelte'
-  import MpvMark from './MpvMark.svelte'
-  import NeovimMark from './NeovimMark.svelte'
-  import ObsidianMark from './ObsidianMark.svelte'
-  import SwayMark from './SwayMark.svelte'
+  import { desktopTools } from './tools.js'
 
   const projects = [
     {
       label: 'dotfiles',
-      description: 'My over-engineered Linux setup',
+      description: 'My entire desktop setup',
       link: 'https://athaurian.github.io/dotfiles/',
       url: 'athaurian/dotfiles',
     },
@@ -37,17 +30,6 @@
     { label: 'Playing the piano', subtext: '...only when I have the time to' },
     { label: 'Running', subtext: 'Short distances' },
     { label: 'Reading fiction', subtext: 'A chapter before bed' },
-  ]
-
-  const uses = [
-    { label: 'CachyOS', subtext: 'Operating system', icon: CachyOSMark, link: 'https://cachyos.org' },
-    { label: 'Sway', subtext: 'Window manager', icon: SwayMark, link: 'https://swaywm.org' },
-    { label: 'kitty', subtext: 'Terminal emulator', icon: KittyMark, link: 'https://sw.kovidgoyal.net/kitty/' },
-    { label: 'Neovim', subtext: 'Text editor', icon: NeovimMark, link: 'https://neovim.io' },
-    { label: 'Bash', subtext: 'Shell', icon: BashMark, link: 'https://www.gnu.org/software/bash/' },
-    { label: 'Helium', subtext: 'Web browser', icon: HeliumMark, link: 'https://helium.computer' },
-    { label: 'Obsidian', subtext: 'Note-taking app', icon: ObsidianMark, link: 'https://obsidian.md' },
-    { label: 'mpv', subtext: 'Media player', icon: MpvMark, link: 'https://mpv.io' },
   ]
 
   // Closed details don't render rows, so defer the stagger one frame.
@@ -154,7 +136,7 @@
         <div class="disclosure-body">
           <p class="section-sub">Software written by people much smarter than me.</p>
           <ul class="uses-grid">
-            {#each uses as tool}
+            {#each desktopTools as tool}
               {@const Icon = tool.icon}
               <li>
                 <a class="use-link" href={tool.link} target="_blank" rel="noreferrer">

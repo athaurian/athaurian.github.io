@@ -1,93 +1,52 @@
 <!-- About page. Edit the copy below. -->
 <script>
-  import BashMark from './BashMark.svelte'
-  import CMark from './CMark.svelte'
-  import CppMark from './CppMark.svelte'
-  import DockerMark from './DockerMark.svelte'
-  import ExpressMark from './ExpressMark.svelte'
-  import GitMark from './GitMark.svelte'
-  import GithubActionsMark from './GithubActionsMark.svelte'
-  import JavaScriptMark from './JavaScriptMark.svelte'
-  import LatexMark from './LatexMark.svelte'
-  import LuaMark from './LuaMark.svelte'
-  import NeovimMark from './NeovimMark.svelte'
-  import NodeMark from './NodeMark.svelte'
-  import OpenCodeMark from './OpenCodeMark.svelte'
   import PageBar from './PageBar.svelte'
-  import PythonMark from './PythonMark.svelte'
-  import SvelteMark from './SvelteMark.svelte'
-  import TypeScriptMark from './TypeScriptMark.svelte'
-  import ViteMark from './ViteMark.svelte'
+  import { stackGroups } from './tools.js'
+  import UiMark from './UiMark.svelte'
 
-  const updated = new Date(`${__BUILD_DATE__}T00:00:00Z`).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'UTC',
-  })
-
-  const groups = [
+  const updated = new Date(`${__BUILD_DATE__}T00:00:00Z`).toLocaleDateString(
+    'en-US',
     {
-      label: 'Languages',
-      items: [
-        { label: 'C', icon: CMark },
-        { label: 'Python', icon: PythonMark },
-        { label: 'JavaScript', icon: JavaScriptMark },
-        { label: 'TypeScript', icon: TypeScriptMark },
-        { label: 'Bash', icon: BashMark },
-        { label: 'Lua', icon: LuaMark },
-        { label: 'C++', icon: CppMark },
-      ],
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC',
     },
-    {
-      label: 'Frameworks',
-      items: [
-        { label: 'Svelte', icon: SvelteMark },
-        { label: 'Vite', icon: ViteMark },
-        { label: 'Node.js', icon: NodeMark },
-        { label: 'LaTeX', icon: LatexMark },
-        { label: 'Express', icon: ExpressMark },
-      ],
-    },
-    {
-      label: 'Tools',
-      items: [
-        { label: 'Neovim', icon: NeovimMark },
-        { label: 'OpenCode', icon: OpenCodeMark },
-        { label: 'Docker', icon: DockerMark },
-        { label: 'Git', icon: GitMark },
-        { label: 'GitHub Actions', icon: GithubActionsMark },
-      ],
-    },
-  ]
+  )
 </script>
 
-<main class="reader">
+<main id="content" class="reader">
   <PageBar current="about" />
 
-  <header id="content">
+  <header>
     <h1>About</h1>
-    <p class="page-lede">
+    <p class="intro">
       Hi. My name is Ilham, and I'm a CS undergraduate @ <span
         class="institution"
-        ><img class="ui-logo" src="/ui-logo.svg" alt="" /> Universitas Indonesia</span
+        ><UiMark /> Universitas Indonesia</span
       >.
     </p>
-    <p class="page-lede">
-      Among other things, I love making stuff for my own use because the process
-      is itself a form of self-reflection. I also appreciate the things that are
-      beautiful by nature.
-    </p>
-    <p class="page-lede">Thank you for visiting my little corner of the web.</p>
-    <p class="page-lede">
-      I'll see you around campus (or wherever else life takes us).
+    <p class="intro">
+      Most of what I make is for my own use. I like to think that the process
+      says something about me. It probably doesn't.
     </p>
   </header>
 
   <div class="prose">
-    <h2>Toolbox</h2>
+    <p>
+      When I'm not studying, I'm usually listening to music or reading on the
+      commute, partly so I don't go insane.
+    </p>
+    <h2>My stuff</h2>
+    <p>
+      I published <a href="https://github.com/athaurian/dotfiles"
+        >my entire desktop setup</a
+      >. It took ages to get right, and it was worth every minute.
+    </p>
+
+    <h2>Tech</h2>
     <div class="stack">
-      {#each groups as group}
+      {#each stackGroups as group}
         <section
           class="stack-group"
           aria-labelledby={`stack-${group.label.toLowerCase()}`}
@@ -119,7 +78,12 @@
       <dt>Built with</dt>
       <dd>Svelte / Vite / GitHub Pages</dd>
       <dt>Typefaces</dt>
-      <dd>Geist / Geist Mono / Merriweather / Homemade Apple</dd>
+      <dd>Geist / Merriweather / Homemade Apple</dd>
     </dl>
+
+    <hr />
+    <p class="sign-off">
+      Thanks for stopping by. If you're also at UI, say hello!
+    </p>
   </div>
 </main>
